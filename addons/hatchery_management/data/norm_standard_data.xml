@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- 1-sort normativlar -->
+    <record id="norm_1_24" model="hatchery.norm.standard">
+        <field name="category">1-sort</field>
+        <field name="age_weeks">24</field>
+        <field name="hatch_rate">85.0</field>
+    </record>
+    <record id="norm_1_28" model="hatchery.norm.standard">
+        <field name="category">1-sort</field>
+        <field name="age_weeks">28</field>
+        <field name="hatch_rate">88.0</field>
+    </record>
+    <record id="norm_1_32" model="hatchery.norm.standard">
+        <field name="category">1-sort</field>
+        <field name="age_weeks">32</field>
+        <field name="hatch_rate">90.0</field>
+    </record>
+
+    <!-- 2-sort normativlar -->
+    <record id="norm_2_24" model="hatchery.norm.standard">
+        <field name="category">2-sort</field>
+        <field name="age_weeks">24</field>
+        <field name="hatch_rate">78.0</field>
+    </record>
+    <record id="norm_2_28" model="hatchery.norm.standard">
+        <field name="category">2-sort</field>
+        <field name="age_weeks">28</field>
+        <field name="hatch_rate">80.0</field>
+    </record>
+    <record id="norm_2_32" model="hatchery.norm.standard">
+        <field name="category">2-sort</field>
+        <field name="age_weeks">32</field>
+        <field name="hatch_rate">83.0</field>
+    </record>
+
+    <!-- 3-sort normativlar -->
+    <record id="norm_3_24" model="hatchery.norm.standard">
+        <field name="category">3-sort</field>
+        <field name="age_weeks">24</field>
+        <field name="hatch_rate">70.0</field>
+    </record>
+    <record id="norm_3_28" model="hatchery.norm.standard">
+        <field name="category">3-sort</field>
+        <field name="age_weeks">28</field>
+        <field name="hatch_rate">73.0</field>
+    </record>
+    <record id="norm_3_32" model="hatchery.norm.standard">
+        <field name="category">3-sort</field>
+        <field name="age_weeks">32</field>
+        <field name="hatch_rate">75.0</field>
+    </record>
+
+    <!-- 4 ta inkubator -->
+    <record id="incubator_1" model="hatchery.incubator">
+        <field name="name">Inkubator 1</field>
+        <field name="capacity">50000</field>
+    </record>
+    <record id="incubator_2" model="hatchery.incubator">
+        <field name="name">Inkubator 2</field>
+        <field name="capacity">50000</field>
+    </record>
+    <record id="incubator_3" model="hatchery.incubator">
+        <field name="name">Inkubator 3</field>
+        <field name="capacity">50000</field>
+    </record>
+    <record id="incubator_4" model="hatchery.incubator">
+        <field name="name">Inkubator 4</field>
+        <field name="capacity">50000</field>
+    </record>
+</odoo>

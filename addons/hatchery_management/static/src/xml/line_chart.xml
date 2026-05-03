@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+<t t-name="hatchery_management.HatcheryLineChart">
+<div class="hatchery_chart_wrapper">
+
+    <t t-if="svgData">
+        <!-- Legend -->
+        <div class="hatchery_chart_legend">
+            <span class="hatchery_legend_item">
+                <span class="hatchery_legend_dot" style="background:#6366f1"/>
+                Inkubatsiyaga kirgan tuxum
+            </span>
+            <span class="hatchery_legend_item">
+                <span class="hatchery_legend_dot" style="background:#10b981"/>
+                Kutilgan joja
+            </span>
+        </div>
+
+        <!-- SVG Chart -->
+        <svg t-att-viewBox="'0 0 ' + svgData.w + ' ' + svgData.h"
+             class="hatchery_chart_svg"
+             xmlns="http://www.w3.org/2000/svg">
+
+            <defs>
+                <linearGradient id="grad_eggs" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#6366f1" stop-opacity="0.18"/>
+                    <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+                </linearGradient>
+                <linearGradient id="grad_chicks" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#10b981" stop-opacity="0.15"/>
+                    <stop offset="100%" stop-color="#10b981" stop-opacity="0"/>
+                </linearGradient>
+            </defs>
+
+            <!-- Y Grid lines -->
+            <t t-foreach="svgData.yLines" t-as="yl" t-key="yl_index">
+                <line t-att-x1="svgData.xLeft" t-att-x2="svgData.xRight"
+                      t-att-y1="yl.y" t-att-y2="yl.y"
+                      stroke="#f1f5f9" stroke-width="1"/>
+                <text t-att-x="svgData.xLeft - 8" t-att-y="yl.y + 4"
+                      text-anchor="end" fill="#94a3b8" font-size="11"
+                      t-esc="yl.label"/>
+            </t>
+
+            <!-- X axis -->
+            <line t-att-x1="svgData.xLeft" t-att-x2="svgData.xRight"
+                  t-att-y1="svgData.yBot" t-att-y2="svgData.yBot"
+                  stroke="#e2e8f0" stroke-width="1"/>
+
+            <!-- Area fills -->
+            <path t-att-d="svgData.eggsArea" fill="url(#grad_eggs)" stroke="none"/>
+            <path t-att-d="svgData.chicksArea" fill="url(#grad_chicks)" stroke="none"/>
+
+            <!-- Lines -->
+            <path t-att-d="svgData.eggsLine"
+                  fill="none" stroke="#6366f1" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+            <path t-att-d="svgData.chicksLine"
+                  fill="none" stroke="#10b981" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+
+            <!-- Data points — eggs -->
+            <t t-foreach="svgData.eggsPoints" t-as="pt" t-key="pt_index">
+                <circle t-att-cx="pt.x" t-att-cy="pt.y" r="4"
+                        fill="white" stroke="#6366f1" stroke-width="2.5"/>
+                <text t-att-x="pt.x" t-att-y="pt.y - 8"
+                      text-anchor="middle" fill="#6366f1"
+                      font-size="10" font-weight="600"
+                      t-esc="pt.v"/>
+            </t>
+
+            <!-- Data points — chicks -->
+            <t t-foreach="svgData.chicksPoints" t-as="pt" t-key="pt_index">
+                <circle t-att-cx="pt.x" t-att-cy="pt.y" r="4"
+                        fill="white" stroke="#10b981" stroke-width="2.5"/>
+            </t>
+
+            <!-- X labels -->
+            <t t-foreach="svgData.labels" t-as="lbl" t-key="lbl_index">
+                <text t-att-x="lbl.x" t-att-y="svgData.yBot + 18"
+                      text-anchor="middle" fill="#64748b"
+                      font-size="12" font-weight="500"
+                      t-esc="lbl.label"/>
+            </t>
+
+        </svg>
+    </t>
+
+    <t t-else="">
+        <div class="hatchery_chart_empty">Ma&#39;lumot yoq</div>
+    </t>
+
+</div>
+</t>
+</templates>

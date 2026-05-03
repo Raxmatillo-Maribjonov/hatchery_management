@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ===== LIST ===== -->
+    <record id="view_batch_list" model="ir.ui.view">
+        <field name="name">hatchery.incubation.batch.list</field>
+        <field name="model">hatchery.incubation.batch</field>
+        <field name="arch" type="xml">
+            <list string="Inkubatsiyalar"
+                  class="hatchery_inkubatsiya_list"
+                  decoration-success="state == 'hatched'"
+                  decoration-info="state == 'in_progress'"
+                  decoration-muted="state == 'done'">
+                <field name="incubator_id" string="Inkubator"/>
+                <field name="delivery_id" string="Partiya"/>
+                <field name="zapravka_date" string="Zapravka kuni"/>
+                <field name="total_eggs" string="Tuxum"/>
+                <field name="total_expected_chick" string="Kutilgan jo'ja"/>
+                <field name="expected_hatch_date" string="Chiqish sanasi"/>
+                <field name="state" string="Holat"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ===== FORM ===== -->
+    <record id="view_batch_form" model="ir.ui.view">
+        <field name="name">hatchery.incubation.batch.form</field>
+        <field name="model">hatchery.incubation.batch</field>
+        <field name="arch" type="xml">
+            <form string="Inkubatsiya">
+                <header>
+                    <button name="action_start" string="Boshlash"
+                            type="object" invisible="state != 'draft'"
+                            class="btn-primary"/>
+                    <button name="action_hatch" string="Jo'ja chiqdi"
+                            type="object" invisible="state != 'in_progress'"
+                            class="btn-success"/>
+                    <button name="action_done" string="Yakunlash"
+                            type="object" invisible="state != 'hatched'"
+                            class="btn-secondary"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,in_progress,hatched,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1" class="text-primary"/></h1>
+                    </div>
+
+                    <!-- KPI -->
+                    <div class="row mb-4">
+                        <div class="col-3">
+                            <div class="card text-center shadow-sm h-100"
+                                 style="border-top: 4px solid #007bff;">
+                                <div class="card-body py-3">
+                                    <div class="text-muted small fw-bold text-uppercase mb-1">Tuxum</div>
+                                    <div class="display-6 fw-bold text-primary">
+                                        <field name="total_eggs" readonly="1"/>
+                                    </div>
+                                    <div class="text-muted small">inkubatsiyaga kirgan</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card text-center shadow-sm h-100"
+                                 style="border-top: 4px solid #28a745;">
+                                <div class="card-body py-3">
+                                    <div class="text-muted small fw-bold text-uppercase mb-1">Kutilgan Jo'ja</div>
+                                    <div class="display-6 fw-bold text-success">
+                                        <field name="total_expected_chick" readonly="1"/>
+                                    </div>
+                                    <div class="text-muted small">dona</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card text-center shadow-sm h-100"
+                                 style="border-top: 4px solid #ffc107;">
+                                <div class="card-body py-3">
+                                    <div class="text-muted small fw-bold text-uppercase mb-1">Chiqish Sanasi</div>
+                                    <div class="fw-bold text-warning mt-3">
+                                        <field name="expected_hatch_date" readonly="1"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card text-center shadow-sm h-100"
+                                 style="border-top: 4px solid #17a2b8;">
+                                <div class="card-body py-3">
+                                    <div class="text-muted small fw-bold text-uppercase mb-1">Haqiqiy Jo'ja</div>
+                                    <div class="display-6 fw-bold text-info">
+                                        <field name="actual_chick_count"
+                                               invisible="state not in ('hatched','done')"/>
+                                        <span invisible="state in ('hatched','done')"
+                                              class="text-muted fs-4">—</span>
+                                    </div>
+                                    <div class="text-muted small">chiqdi</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MA'LUMOTLAR -->
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card shadow-sm mb-3">
+                                <div class="card-header fw-bold"
+                                     style="background:#6B4FBB; color:white;">
+                                    <i class="fa fa-cube me-2"/> Inkubatsiya ma'lumotlari
+                                </div>
+                                <div class="card-body">
+                                    <group col="2">
+                                        <field name="incubator_id" string="Inkubator"/>
+                                        <field name="zapravka_date" string="Zapravka kuni"/>
+                                        <field name="expected_hatch_date" readonly="1"
+                                               string="Kutilgan chiqish sanasi"/>
+                                        <field name="delivery_id" string="Partiya"/>
+                                    </group>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card shadow-sm mb-3">
+                                <div class="card-header fw-bold"
+                                     style="background:#28a745; color:white;">
+                                    <i class="fa fa-bar-chart me-2"/> Natija
+                                </div>
+                                <div class="card-body">
+                                    <group col="2">
+                                        <field name="total_eggs" readonly="1"
+                                               string="Kirgan tuxum"/>
+                                        <field name="total_expected_chick" readonly="1"
+                                               string="Kutilgan jo'ja"/>
+                                        <field name="actual_chick_count"
+                                               string="Haqiqiy jo'ja"
+                                               invisible="state not in ('hatched','done')"/>
+                                    </group>
+                                    <div class="alert alert-info mt-2 mb-0 py-2 text-center small"
+                                         invisible="state != 'in_progress'">
+                                        <i class="fa fa-clock-o me-1"/>
+                                        Inkubatsiya jarayonida...
+                                    </div>
+                                    <div class="alert alert-success mt-2 mb-0 py-2 text-center small"
+                                         invisible="state != 'hatched'">
+                                        <i class="fa fa-check me-1"/>
+                                        Jo'ja muvaffaqiyatli chiqdi!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- REZERVLAR (faqat chiqgandan keyin) -->
+                    <div class="card shadow-sm" invisible="state not in ('hatched','done')">
+                        <div class="card-header fw-bold"
+                             style="background:#17a2b8; color:white;">
+                            <i class="fa fa-bookmark me-2"/> Rezervlar
+                        </div>
+                        <div class="card-body p-0">
+                            <field name="reservation_ids" nolabel="1">
+                                <list>
+                                    <field name="client_name" string="Mijoz"/>
+                                    <field name="client_phone" string="Telefon"/>
+                                    <field name="chick_count" string="Jo'ja soni"/>
+                                    <field name="reservation_date" string="Sana"/>
+                                    <field name="state" string="Holat"/>
+                                </list>
+                            </field>
+                        </div>
+                    </div>
+
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_incubation_batch" model="ir.actions.act_window">
+        <field name="name">Inkubatsiyalar</field>
+        <field name="res_model">hatchery.incubation.batch</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

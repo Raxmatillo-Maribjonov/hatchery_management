@@ -1,0 +1,30 @@
+{
+    'name': 'Hatchery Management',
+    'version': '1.0.0',
+    'summary': 'Inkubatsiya va Sotuvni Boshqarish Tizimi',
+    'author': 'Raxmatillo',
+    'category': 'Agriculture',
+    'depends': ['base', 'mail'],
+    'data': [
+        'security/ir.model.access.csv',
+        'data/norm_standard_data.xml',
+        'views/dashboard_views.xml',
+        'views/egg_delivery_views.xml',
+        'views/incubator_views.xml',
+        'views/incubation_batch_views.xml',
+        'views/reservation_views.xml',
+        'views/norm_standard_views.xml',
+        'views/menu_views.xml',
+        'reports/osvobojdenie_report.xml',
+    ],
+    'assets': {
+        'web.assets_backend': [
+            'hatchery_management/static/src/css/hatchery.css',
+            'hatchery_management/static/src/css/line_chart.css',
+            'hatchery_management/static/src/xml/line_chart.xml',
+            'hatchery_management/static/src/js/line_chart.js',
+        ],
+    },
+    'installable': True,
+    'application': True,
+}

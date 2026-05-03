@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_hatchery_root"
+              name="Hatchery"
+              web_icon="hatchery_management,static/description/icon.svg"
+              action="action_hatchery_dashboard"
+              sequence="10"/>
+
+    <!-- Partiya — bitta, to'g'ri ochiladi -->
+    <menuitem id="menu_hatchery_partiya"
+              name="Partiya"
+              parent="menu_hatchery_root"
+              action="action_egg_delivery"
+              sequence="10"/>
+
+    <!-- Inkubatsiya — bitta action, to'g'ri ochiladi -->
+    <menuitem id="menu_hatchery_incubation"
+              name="Inkubatsiya"
+              parent="menu_hatchery_root"
+              action="action_incubation_batch"
+              sequence="20"/>
+
+    <!-- Sotuv — bitta, to'g'ri ochiladi -->
+    <menuitem id="menu_hatchery_sales"
+              name="Sotuv"
+              parent="menu_hatchery_root"
+              action="action_reservation"
+              sequence="30"/>
+
+    <!-- Sozlamalar — bir nechta, dropdown -->
+    <menuitem id="menu_hatchery_admin"
+              name="Sozlamalar"
+              parent="menu_hatchery_root"
+              sequence="40"/>
+
+    <menuitem id="menu_incubator_settings"
+              name="Inkubatorlar"
+              parent="menu_hatchery_admin"
+              action="action_incubator"
+              sequence="10"/>
+
+    <menuitem id="menu_norm_standard"
+              name="Normativ Standartlar"
+              parent="menu_hatchery_admin"
+              action="action_norm_standard"
+              sequence="20"/>
+</odoo>

@@ -1,0 +1,570 @@
+/* ===== DASHBOARD — Full screen, clean design ===== */
+
+/* ===== DASHBOARD FULL SCREEN ===== */
+
+/* Breadcrumb yashirish */
+.o_form_view_container:has(.hatchery_dashboard_sheet) .o_control_panel {
+    display: none !important;
+}
+
+/* o_content — to'liq balandlik, fon rangi */
+.o_form_view_container:has(.hatchery_dashboard_sheet) .o_content,
+.o_form_view_container:has(.hatchery_dashboard_sheet) .o_form_renderer {
+    background: #f0f2f5 !important;
+    height: 100% !important;
+}
+
+/* Sheet background */
+.o_form_sheet_bg.hatchery_dashboard_sheet {
+    background: #f0f2f5 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+}
+
+/* Sheet — chegarasiz, shaffof, to'liq */
+.o_form_sheet_bg.hatchery_dashboard_sheet .o_form_sheet {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+    border-radius: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 24px 32px !important;
+    min-height: 100% !important;
+}
+
+/* ===== DATE FILTER INPUT ===== */
+.hatchery_drp_input {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: white;
+    border: 1.5px solid #c7d2fe;
+    border-radius: 8px;
+    padding: 0 10px;
+    height: 36px;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.08);
+}
+
+.hatchery_drp_input:focus-within {
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.15) !important;
+}
+
+.hatchery_drp_icon { color: #6366f1; font-size: 13px; flex-shrink: 0; }
+.hatchery_drp_tilde { color: #94a3b8; font-size: 14px; flex-shrink: 0; }
+
+.hatchery_drp_date .o_field_date,
+.hatchery_drp_date { flex: 1; min-width: 0; }
+
+.hatchery_drp_date .o_field_date input,
+.hatchery_drp_date input {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: #334155 !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* ===== DATE RANGE PICKER — top right, 25% ===== */
+.hatchery_drp {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 25%;
+    flex-shrink: 0;
+}
+
+/* Preset tugmalar qatori */
+.hatchery_drp_presets {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+}
+
+.hatchery_drp_preset {
+    height: 26px !important;
+    padding: 0 10px !important;
+    border-radius: 5px !important;
+    border: 1px solid #e2e8f0 !important;
+    background: white !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    color: #64748b !important;
+    cursor: pointer !important;
+    transition: all 0.15s !important;
+    box-shadow: none !important;
+}
+
+.hatchery_drp_preset:hover {
+    background: #f1f5f9 !important;
+    color: #334155 !important;
+}
+
+.hatchery_drp_active {
+    background: #6366f1 !important;
+    border-color: #6366f1 !important;
+    color: white !important;
+    font-weight: 600 !important;
+}
+
+.hatchery_drp_vline {
+    width: 1px;
+    height: 18px;
+    background: #e2e8f0;
+    margin: 0 2px;
+}
+
+.hatchery_drp_nav {
+    width: 26px !important;
+    height: 26px !important;
+    padding: 0 !important;
+    border-radius: 5px !important;
+    border: 1px solid #e2e8f0 !important;
+    background: white !important;
+    font-size: 15px !important;
+    color: #64748b !important;
+    cursor: pointer !important;
+    line-height: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: none !important;
+    transition: all 0.15s !important;
+}
+
+.hatchery_drp_nav:hover {
+    background: #f8fafc !important;
+    border-color: #6366f1 !important;
+    color: #6366f1 !important;
+}
+
+/* Sana input qatori */
+.hatchery_drp_input {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: white;
+    border: 1.5px solid #c7d2fe;
+    border-radius: 8px;
+    padding: 0 10px;
+    height: 36px;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.08);
+    transition: border-color 0.15s;
+}
+
+.hatchery_drp_input:focus-within {
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.15) !important;
+}
+
+.hatchery_drp_icon {
+    color: #6366f1;
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+.hatchery_drp_date .o_field_date,
+.hatchery_drp_date {
+    flex: 1;
+    min-width: 0;
+}
+
+.hatchery_drp_date .o_field_date input,
+.hatchery_drp_date input {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: #334155 !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.hatchery_drp_tilde {
+    color: #94a3b8;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.hatchery_section_divider {
+    border-bottom: 2px solid #e9ecef;
+}
+
+
+/* ===== COMPACT FILTER BAR ===== */
+.hatchery_filter_bar {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 0 12px;
+    gap: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+/* Mode toggle */
+.hatchery_mode_toggle {
+    display: flex;
+    background: #f1f5f9;
+    border-radius: 7px;
+    padding: 3px;
+    gap: 2px;
+    flex-shrink: 0;
+}
+
+.hatchery_mode_btn {
+    height: 28px !important;
+    padding: 0 14px !important;
+    border-radius: 5px !important;
+    border: none !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: #64748b !important;
+    background: transparent !important;
+    cursor: pointer !important;
+    transition: all 0.15s !important;
+    box-shadow: none !important;
+    white-space: nowrap;
+}
+
+.hatchery_mode_btn:hover {
+    color: #334155 !important;
+    background: #e2e8f0 !important;
+}
+
+.hatchery_mode_active {
+    background: white !important;
+    color: #1e293b !important;
+    font-weight: 600 !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12) !important;
+}
+
+/* Vertikal ajratgich */
+.hatchery_filter_vline {
+    width: 1px;
+    height: 26px;
+    background: #e2e8f0;
+    flex-shrink: 0;
+}
+
+/* Prev/Next navigatsiya */
+.hatchery_nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.hatchery_nav_btn {
+    width: 28px !important;
+    height: 28px !important;
+    padding: 0 !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 6px !important;
+    background: white !important;
+    color: #64748b !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: none !important;
+    transition: all 0.15s !important;
+    line-height: 1 !important;
+}
+
+.hatchery_nav_btn:hover {
+    background: #f8fafc !important;
+    border-color: #cbd5e1 !important;
+    color: #1e293b !important;
+}
+
+.hatchery_nav_label {
+    min-width: 110px;
+    text-align: center;
+}
+
+.hatchery_nav_label .o_field_widget span,
+.hatchery_nav_label .o_field_char {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #1e293b !important;
+    white-space: nowrap;
+}
+
+/* Custom sana inputlar */
+.hatchery_filter_dates {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.hatchery_filter_label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.hatchery_filter_sep {
+    color: #cbd5e1;
+    font-size: 13px;
+}
+
+.hatchery_filter_date_input .o_field_date input,
+.hatchery_filter_date_input input {
+    height: 30px !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 6px !important;
+    padding: 0 8px !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: #334155 !important;
+    background: #f8fafc !important;
+    width: 120px !important;
+}
+
+.hatchery_filter_date_input input:focus {
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 2px rgba(99,102,241,0.15) !important;
+    outline: none !important;
+    background: white !important;
+}
+
+
+/* ===== SECTION ===== */
+/* Section */
+.hatchery_section {
+    margin-bottom: 32px;
+}
+
+.hatchery_section_title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #495057;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e9ecef;
+    margin-bottom: 16px;
+}
+
+/* KPI card */
+.hatchery_kpi_card {
+    background: white;
+    border-radius: 8px;
+    border-top: 4px solid #ccc;
+    padding: 20px 16px;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    height: 100%;
+}
+
+.hatchery_kpi_label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #6c757d;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.hatchery_kpi_value {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 6px;
+}
+
+.hatchery_kpi_sub {
+    font-size: 12px;
+    color: #adb5bd;
+}
+
+/* Incubator card */
+.hatchery_incubator_card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    overflow: hidden;
+    height: 100%;
+}
+
+.hatchery_inc_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.hatchery_inc_name {
+    font-weight: 700;
+    font-size: 15px;
+    color: #343a40;
+}
+
+.hatchery_inc_badge {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+}
+
+.hatchery_badge_loaded {
+    background: #d4edda;
+    color: #155724;
+}
+
+.hatchery_badge_empty {
+    background: #e9ecef;
+    color: #6c757d;
+}
+
+.hatchery_inc_stats {
+    padding: 12px 16px;
+}
+
+.hatchery_inc_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid #f1f3f5;
+    font-size: 14px;
+}
+
+.hatchery_inc_row:last-child {
+    border-bottom: none;
+}
+
+.hatchery_inc_footer {
+    padding: 8px 16px;
+    background: #fff9e6;
+    border-top: 1px solid #ffeeba;
+    font-size: 13px;
+    color: #856404;
+    text-align: center;
+}
+
+
+/* ===== UMUMIY QOIDA: birinchi ustun left, qolganlar right ===== */
+
+
+/* ===== NORMATIV STANDARTLAR — 4 teng ustun ===== */
+.hatchery_norm_list {
+    table-layout: fixed !important;
+}
+
+.hatchery_norm_list thead th:not(.o_list_record_selector),
+.hatchery_norm_list tbody td:not(.o_list_record_selector) {
+    width: 25% !important;
+    text-align: right !important;
+}
+
+.hatchery_norm_list thead th:not(.o_list_record_selector):first-of-type,
+.hatchery_norm_list tbody td:not(.o_list_record_selector):first-of-type {
+    text-align: left !important;
+}
+
+.hatchery_norm_list thead th {
+    text-align: right !important;
+}
+
+.hatchery_norm_list thead th:not(.o_list_record_selector):first-of-type {
+    text-align: left !important;
+}
+
+
+/* ===== INKUBATORLAR — 3 teng ustun ===== */
+.hatchery_incubator_list {
+    table-layout: fixed !important;
+}
+
+.hatchery_incubator_list thead th:not(.o_list_record_selector),
+.hatchery_incubator_list tbody td:not(.o_list_record_selector) {
+    width: 33.33% !important;
+    text-align: right !important;
+}
+
+.hatchery_incubator_list thead th:not(.o_list_record_selector):first-of-type,
+.hatchery_incubator_list tbody td:not(.o_list_record_selector):first-of-type {
+    text-align: left !important;
+}
+
+.hatchery_incubator_list thead th {
+    text-align: right !important;
+}
+
+.hatchery_incubator_list thead th:not(.o_list_record_selector):first-of-type {
+    text-align: left !important;
+}
+
+
+/* ===== INKUBATSIYALAR — 7 teng ustun ===== */
+.hatchery_inkubatsiya_list {
+    table-layout: fixed !important;
+}
+
+.hatchery_inkubatsiya_list thead th:not(.o_list_record_selector),
+.hatchery_inkubatsiya_list tbody td:not(.o_list_record_selector) {
+    width: 14.28% !important;
+    text-align: right !important;
+}
+
+.hatchery_inkubatsiya_list thead th:not(.o_list_record_selector):first-of-type,
+.hatchery_inkubatsiya_list tbody td:not(.o_list_record_selector):first-of-type {
+    text-align: left !important;
+}
+
+.hatchery_inkubatsiya_list thead th {
+    text-align: right !important;
+}
+
+.hatchery_inkubatsiya_list thead th:not(.o_list_record_selector):first-of-type {
+    text-align: left !important;
+}
+
+
+/* ===== PARTIYALAR — 7 teng ustun ===== */
+.hatchery_partiya_list {
+    table-layout: fixed !important;
+}
+
+.hatchery_partiya_list thead th:not(.o_list_record_selector),
+.hatchery_partiya_list tbody td:not(.o_list_record_selector) {
+    width: 14.28% !important;
+    text-align: right !important;
+}
+
+.hatchery_partiya_list thead th:not(.o_list_record_selector):first-of-type,
+.hatchery_partiya_list tbody td:not(.o_list_record_selector):first-of-type {
+    text-align: left !important;
+}
+
+.hatchery_partiya_list thead th {
+    text-align: right !important;
+}
+
+.hatchery_partiya_list thead th:not(.o_list_record_selector):first-of-type {
+    text-align: left !important;
+}

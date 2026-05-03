@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_osvobojdenie" model="ir.actions.report">
+        <field name="name">Osvobojdenie Syplyat</field>
+        <field name="model">hatchery.incubation.batch</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hatchery_management.report_osvobojdenie</field>
+        <field name="report_file">hatchery_management.report_osvobojdenie</field>
+        <field name="binding_model_id" ref="model_hatchery_incubation_batch"/>
+    </record>
+
+    <template id="report_osvobojdenie">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="batch">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Osvobojdenie Syplyat — Hisobot</h2>
+                        <table class="table table-bordered">
+                            <tr>
+                                <td><b>Inkubator:</b></td>
+                                <td><t t-out="batch.incubator_id.name"/></td>
+                            </tr>
+                            <tr>
+                                <td><b>Zapravka kuni:</b></td>
+                                <td><t t-out="batch.zapravka_date"/></td>
+                            </tr>
+                            <tr>
+                                <td><b>Kategoriya:</b></td>
+                                <td><t t-out="batch.category"/>-sort</td>
+                            </tr>
+                            <tr>
+                                <td><b>Tuxum soni:</b></td>
+                                <td><t t-out="batch.egg_count"/></td>
+                            </tr>
+                            <tr>
+                                <td><b>Chiqish sanasi:</b></td>
+                                <td><t t-out="batch.expected_hatch_date"/></td>
+                            </tr>
+                            <tr>
+                                <td><b>Kutilayotgan jo'ja soni:</b></td>
+                                <td><t t-out="batch.expected_chick_count"/></td>
+                            </tr>
+                            <tr>
+                                <td><b>Haqiqiy jo'ja soni:</b></td>
+                                <td><t t-out="batch.actual_chick_count or '-'"/></td>
+                            </tr>
+
+                        </table>
+
+                        <h4>Rezervlar</h4>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Mijoz</th>
+                                    <th>Telefon</th>
+                                    <th>Jo'ja soni</th>
+                                    <th>Holat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="batch.reservation_ids" t-as="res">
+                                    <tr>
+                                        <td><t t-out="res.client_name"/></td>
+                                        <td><t t-out="res.client_phone"/></td>
+                                        <td><t t-out="res.chick_count"/></td>
+                                        <td><t t-out="res.state"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

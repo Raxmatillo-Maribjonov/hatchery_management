@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- LIST — Sozlamalar uchun oddiy ko'rinish -->
+    <record id="view_incubator_list" model="ir.ui.view">
+        <field name="name">hatchery.incubator.list</field>
+        <field name="model">hatchery.incubator</field>
+        <field name="arch" type="xml">
+            <list string="Inkubatorlar" editable="bottom" class="hatchery_incubator_list">
+                <field name="name" string="Nomi"/>
+                <field name="capacity" string="Sig'im (dona)"/>
+                <field name="date_added" string="Qo'shilgan sana"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_incubator" model="ir.actions.act_window">
+        <field name="name">Inkubatorlar</field>
+        <field name="res_model">hatchery.incubator</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <!-- KANBAN — Inkubatsiya bo'limida ko'rish uchun -->
+    <record id="view_incubator_kanban" model="ir.ui.view">
+        <field name="name">hatchery.incubator.kanban</field>
+        <field name="model">hatchery.incubator</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="state"/>
+                <field name="capacity"/>
+                <field name="active_batch_id"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_card oe_kanban_global_click p-0">
+                            <div t-attf-style="
+                                background: #{record.state.raw_value == 'loaded' ? '#28a745' : '#6c757d'};
+                                color: white; padding: 10px 14px; border-radius: 6px 6px 0 0;">
+                                <h5 class="mb-0">
+                                    <i class="fa fa-cube me-2"/>
+                                    <t t-esc="record.name.value"/>
+                                </h5>
+                                <small>
+                                    <t t-if="record.state.raw_value == 'loaded'">
+                                        Zapravka qilingan
+                                    </t>
+                                    <t t-else="">Bo`sh</t>
+                                </small>
+                            </div>
+                            <div class="p-3 text-center">
+                                <div class="row">
+                                    <div class="col-6 border-end">
+                                        <div class="text-muted small">Sig`im</div>
+                                        <strong><t t-esc="record.capacity.value"/></strong>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="text-muted small">Faol partiya</div>
+                                        <t t-if="record.active_batch_id.value">
+                                            <span class="badge bg-success">Mavjud</span>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="badge bg-secondary">Yo`q</span>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_incubator_kanban" model="ir.actions.act_window">
+        <field name="name">Inkubatorlar holati</field>
+        <field name="res_model">hatchery.incubator</field>
+        <field name="view_mode">kanban,list</field>
+    </record>
+</odoo>

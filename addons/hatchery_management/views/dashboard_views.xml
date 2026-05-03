@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hatchery_dashboard" model="ir.ui.view">
+        <field name="name">hatchery.dashboard.form</field>
+        <field name="model">hatchery.dashboard</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" delete="false">
+                <sheet class="hatchery_dashboard_sheet" style="max-width:100%!important;width:100%!important;margin:0!important;padding:24px 32px!important;box-shadow:none!important;border:none!important;background:transparent!important;min-height:100%!important;">
+
+                    <!-- Hidden fields -->
+                    <field name="prev_total_partiya" invisible="1"/>
+                    <field name="prev_eggs_in_incubation" invisible="1"/>
+                    <field name="prev_expected_chicks" invisible="1"/>
+                    <field name="prev_confirmed_reservations" invisible="1"/>
+                    <field name="change_partiya_pct" invisible="1"/>
+                    <field name="change_eggs_pct" invisible="1"/>
+                    <field name="change_chicks_pct" invisible="1"/>
+                    <field name="change_reservations_pct" invisible="1"/>
+                    <field name="change_partiya_up" invisible="1"/>
+                    <field name="change_eggs_up" invisible="1"/>
+                    <field name="change_chicks_up" invisible="1"/>
+                    <field name="change_reservations_up" invisible="1"/>
+                    <field name="chart_data" invisible="1"/>
+                    <field name="chart_period_label" invisible="1"/>
+
+                    <!-- DATE FILTER — o'ng tomonda -->
+                    <div class="d-flex justify-content-end align-items-center mb-3" style="gap:8px;">
+                        <div class="hatchery_drp_input" style="width:280px;">
+                            <i class="fa fa-calendar hatchery_drp_icon"/>
+                            <field name="date_from" nolabel="1" class="hatchery_drp_date"/>
+                            <span class="hatchery_drp_tilde">~</span>
+                            <field name="date_to" nolabel="1" class="hatchery_drp_date"/>
+                        </div>
+                    </div>
+
+                    <!-- 1. KPI QATOR with COMPARISON -->
+                    <div class="hatchery_section">
+                        <div class="hatchery_section_title">
+                            <i class="fa fa-tachometer me-2"/>Umumiy ko'rsatkichlar
+                        </div>
+                        <div class="row g-3">
+
+                            <!-- Partiyalar -->
+                            <div class="col-2">
+                                <div class="hatchery_kpi_card" style="border-top-color:#6B4FBB;">
+                                    <div class="hatchery_kpi_label">Partiyalar</div>
+                                    <div class="hatchery_kpi_value" style="color:#6B4FBB;">
+                                        <field name="total_partiya" readonly="1"/>
+                                    </div>
+                                    <div class="text-center mt-1">
+                                        <span invisible="not change_partiya_up"
+                                              class="hatchery_kpi_change hatchery_kpi_change_up">
+                                            ↑ <field name="change_partiya_pct" readonly="1"/>%
+                                        </span>
+                                        <span invisible="change_partiya_up"
+                                              class="hatchery_kpi_change hatchery_kpi_change_down">
+                                            ↓ <field name="change_partiya_pct" readonly="1"/>%
+                                        </span>
+                                    </div>
+                                    <div class="hatchery_kpi_prev">
+                                        o'tgan: <field name="prev_total_partiya" readonly="1"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Inkubatsiyada -->
+                            <div class="col-2">
+                                <div class="hatchery_kpi_card" style="border-top-color:#007bff;">
+                                    <div class="hatchery_kpi_label">Inkubatsiyada</div>
+                                    <div class="hatchery_kpi_value" style="color:#007bff;">
+                                        <field name="active_incubation" readonly="1"/>
+                                    </div>
+                                    <div class="hatchery_kpi_sub">faol partiya</div>
+                                </div>
+                            </div>
+
+                            <!-- Tuxumlar -->
+                            <div class="col-2">
+                                <div class="hatchery_kpi_card" style="border-top-color:#17a2b8;">
+                                    <div class="hatchery_kpi_label">Tuxumlar</div>
+                                    <div class="hatchery_kpi_value" style="color:#17a2b8;">
+                                        <field name="eggs_in_incubation" readonly="1"/>
+                                    </div>
+                                    <div class="text-center mt-1">
+                                        <span invisible="not change_eggs_up"
+                                              class="hatchery_kpi_change hatchery_kpi_change_up">
+                                            ↑ <field name="change_eggs_pct" readonly="1"/>%
+                                        </span>
+                                        <span invisible="change_eggs_up"
+                                              class="hatchery_kpi_change hatchery_kpi_change_down">
+                                            ↓ <field name="change_eggs_pct" readonly="1"/>%
+                                        </span>
+                                    </div>
+                                    <div class="hatchery_kpi_prev">
+                                        o'tgan: <field name="prev_eggs_in_incubation" readonly="1"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Kutilgan Jo'ja -->
+                            <div class="col-2">
+                                <div class="hatchery_kpi_card" style="border-top-color:#28a745;">
+                                    <div class="hatchery_kpi_label">Kutilgan Jo'ja</div>
+                                    <div class="hatchery_kpi_value" style="color:#28a745;">
+                                        <field name="expected_chicks" readonly="1"/>
+                                    </div>
+                                    <div class="text-center mt-1">
+                                        <span invisible="not change_chicks_up"
+                                              class="hatchery_kpi_change hatchery_kpi_change_up">
+                                            ↑ <field name="change_chicks_pct" readonly="1"/>%
+                                        </span>
+                                        <span invisible="change_chicks_up"
+                                              class="hatchery_kpi_change hatchery_kpi_change_down">
+                                            ↓ <field name="change_chicks_pct" readonly="1"/>%
+                                        </span>
+                                    </div>
+                                    <div class="hatchery_kpi_prev">
+                                        o'tgan: <field name="prev_expected_chicks" readonly="1"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bu Hafta -->
+                            <div class="col-2">
+                                <div class="hatchery_kpi_card" style="border-top-color:#ffc107;">
+                                    <div class="hatchery_kpi_label">Bu Hafta</div>
+                                    <div class="hatchery_kpi_value" style="color:#ffc107;">
+                                        <field name="hatching_this_week" readonly="1"/>
+                                    </div>
+                                    <div class="hatchery_kpi_sub">chiqadi</div>
+                                </div>
+                            </div>
+
+                            <!-- Rezervlar -->
+                            <div class="col-2">
+                                <div class="hatchery_kpi_card" style="border-top-color:#dc3545;">
+                                    <div class="hatchery_kpi_label">Rezervlar</div>
+                                    <div class="hatchery_kpi_value" style="color:#dc3545;">
+                                        <field name="confirmed_reservations" readonly="1"/>
+                                    </div>
+                                    <div class="text-center mt-1">
+                                        <span invisible="not change_reservations_up"
+                                              class="hatchery_kpi_change hatchery_kpi_change_up">
+                                            ↑ <field name="change_reservations_pct" readonly="1"/>%
+                                        </span>
+                                        <span invisible="change_reservations_up"
+                                              class="hatchery_kpi_change hatchery_kpi_change_down">
+                                            ↓ <field name="change_reservations_pct" readonly="1"/>%
+                                        </span>
+                                    </div>
+                                    <div class="hatchery_kpi_prev">
+                                        o'tgan: <field name="prev_confirmed_reservations" readonly="1"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- 2. LINE CHART -->
+                    <div class="hatchery_section">
+                        <div class="hatchery_section_title">
+                            <i class="fa fa-line-chart me-2"/>Yillik Trend
+                        </div>
+                        <field name="chart_data" widget="hatchery_line_chart" nolabel="1"/>
+                    </div>
+
+                    <!-- 3. INKUBATORLAR HOLATI -->
+                    <div class="hatchery_section">
+                        <div class="hatchery_section_title">
+                            <i class="fa fa-cube me-2"/>Inkubatorlar Holati
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-3" invisible="not incubator_1_name">
+                                <div class="hatchery_incubator_card">
+                                    <div class="hatchery_inc_header">
+                                        <span class="hatchery_inc_name"><field name="incubator_1_name" readonly="1"/></span>
+                                        <span class="hatchery_inc_badge hatchery_badge_loaded" invisible="incubator_1_state != 'loaded'">● Faol</span>
+                                        <span class="hatchery_inc_badge hatchery_badge_empty" invisible="incubator_1_state != 'empty'">○ Bo'sh</span>
+                                    </div>
+                                    <div class="hatchery_inc_stats">
+                                        <div class="hatchery_inc_row"><span class="text-muted small">Sig'im</span><strong><field name="incubator_1_capacity" readonly="1"/></strong></div>
+                                        <div class="hatchery_inc_row"><span class="text-muted small">Solingan</span><strong class="text-primary"><field name="incubator_1_eggs" readonly="1"/></strong></div>
+                                        <div class="hatchery_inc_row"><span class="text-muted small">Bo'sh joy</span><strong class="text-success"><field name="incubator_1_free" readonly="1"/></strong></div>
+                                        <div class="hatchery_inc_row"><span class="text-muted small">To'lganlik</span><strong><field name="incubator_1_utilization" readonly="1" digits="[6,1]"/>%</strong></div>
+                                    </div>
+                                    <div class="hatchery_inc_footer" invisible="not incubator_1_hatch_date">
+                                        <i class="fa fa-calendar me-1 text-warning"/> Chiqish: <strong><field name="incubator_1_hatch_date" readonly="1"/></strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3" invisible="not incubator_2_name">
+                                <div class="hatchery_incubator_card">
+                                    <div class="hatchery_inc_header">
+                                        <span class="hatchery_inc_name"><field name="incubator_2_name" readonly="1"/></span>
+                                        <span class="hatchery_inc_badge hatchery_badge_loaded" invisible="incubator_2_state != 'loaded'">● Faol</span>
+                                        <span class="hatchery_inc_badge hatchery_badge_empty" invisible="incubator_2_state != 'empty'">○ Bo'sh</span>
+                                    </div>
+                                    <div class="hatchery_inc_stats">
+                                        <div class="hatchery_inc_row"><span class="text-muted small">Sig'im</span><strong><field name="incubator_2_capacity" readonly="1"/></strong></div>
+                                        <div class="hatchery_inc_row"><span class="text-muted small">Solingan</span><strong class="text-primary"><field name="incubator_2_eggs" readonly="1"/></strong></div>
+                                        <div class="hatchery_inc_row"><span class="text-muted small">Bo'sh joy</span><strong class="text-success"><field name="incubator_2_free" readonly="1"/></strong></div>
+                                        <div class="hatchery_inc_row"><span class="text-muted small">To'lganlik</span><strong><field name="incubator_2_utilization" readonly="1" digits="[6,1]"/>%</strong></div>
+                                    </div>
+                                    <div class="hatchery_inc_footer" invisible="not incubator_2_hatch_date">
+                                        <i class="fa fa-calendar me-1 text-warning"/> Chiqish: <strong><field name="incubator_2_hatch_date" readonly="1"/></strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3" invisible="not incubator_3_name">
+                                <div class="hatchery_incubator_card">
+                                    <div class="hatchery_inc_header">
+                                        <span class="hatchery_inc_name"><field name="incubator_3_name" readonly="1"/></span>
+                                        <span class="hatchery_inc_badge hatchery_badge_loaded" invisible="incubator_3_state != 'loaded'">● Faol</span>
+                                        <span class="hatchery_inc_badge hatchery_badge_empty" invisible="incubator_3_state != 'empty'">○ Bo'sh</span>
+                                    </div>
+                                    <div class="hatchery_inc_stats">
+                                        <div class="hatchery_inc_row"><span class="text-muted small">Sig'im</span><strong><field name="incubator_3_capacity" readonly="1"/></strong></div>
+                                        <div class="hatchery_inc_row"><span class="text-muted small">Solingan</span><strong class="text-primary"><field name="incubator_3_eggs" readonly="1"/></strong></div>
+                                        <div class="hatchery_inc_row"><span class="text-muted small">Bo'sh joy</span><strong class="text-success"><field name="incubator_3_free" readonly="1"/></strong></div>
+                                        <div class="hatchery_inc_row"><span class="text-muted small">To'lganlik</span><strong><field name="incubator_3_utilization" readonly="1" digits="[6,1]"/>%</strong></div>
+                                    </div>
+                                    <div class="hatchery_inc_footer" invisible="not incubator_3_hatch_date">
+                                        <i class="fa fa-calendar me-1 text-warning"/> Chiqish: <strong><field name="incubator_3_hatch_date" readonly="1"/></strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3" invisible="not incubator_4_name">
+                                <div class="hatchery_incubator_card">
+                                    <div class="hatchery_inc_header">
+                                        <span class="hatchery_inc_name"><field name="incubator_4_name" readonly="1"/></span>
+                                        <span class="hatchery_inc_badge hatchery_badge_loaded" invisible="incubator_4_state != 'loaded'">● Faol</span>
+                                        <span class="hatchery_inc_badge hatchery_badge_empty" invisible="incubator_4_state != 'empty'">○ Bo'sh</span>
+                                    </div>
+                                    <div class="hatchery_inc_stats">
+                                        <div class="hatchery_inc_row"><span class="text-muted small">Sig'im</span><strong><field name="incubator_4_capacity" readonly="1"/></strong></div>
+                                        <div class="hatchery_inc_row"><span class="text-muted small">Solingan</span><strong class="text-primary"><field name="incubator_4_eggs" readonly="1"/></strong></div>
+                                        <div class="hatchery_inc_row"><span class="text-muted small">Bo'sh joy</span><strong class="text-success"><field name="incubator_4_free" readonly="1"/></strong></div>
+                                        <div class="hatchery_inc_row"><span class="text-muted small">To'lganlik</span><strong><field name="incubator_4_utilization" readonly="1" digits="[6,1]"/>%</strong></div>
+                                    </div>
+                                    <div class="hatchery_inc_footer" invisible="not incubator_4_hatch_date">
+                                        <i class="fa fa-calendar me-1 text-warning"/> Chiqish: <strong><field name="incubator_4_hatch_date" readonly="1"/></strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. SOTUV HOLATI -->
+                    <div class="hatchery_section">
+                        <div class="hatchery_section_title">
+                            <i class="fa fa-bar-chart me-2"/>Sotuv Holati
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-4">
+                                <div class="hatchery_kpi_card" style="border-top-color:#28a745;">
+                                    <div class="hatchery_kpi_label">Tasdiqlangan Rezerv</div>
+                                    <div class="hatchery_kpi_value" style="color:#28a745;"><field name="confirmed_reservations" readonly="1"/></div>
+                                    <div class="hatchery_kpi_sub">buyurtma</div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="hatchery_kpi_card" style="border-top-color:#ffc107;">
+                                    <div class="hatchery_kpi_label">Navbatda</div>
+                                    <div class="hatchery_kpi_value" style="color:#ffc107;"><field name="waiting_reservations" readonly="1"/></div>
+                                    <div class="hatchery_kpi_sub">kutmoqda</div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="hatchery_kpi_card" style="border-top-color:#17a2b8;">
+                                    <div class="hatchery_kpi_label">Jami Rezerv Jo'ja</div>
+                                    <div class="hatchery_kpi_value" style="color:#17a2b8;"><field name="total_reserved_chicks" readonly="1"/></div>
+                                    <div class="hatchery_kpi_sub">dona</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hatchery_dashboard" model="ir.actions.act_window">
+        <field name="name">Bosh Sahifa</field>
+        <field name="res_model">hatchery.dashboard</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+    </record>
+</odoo>

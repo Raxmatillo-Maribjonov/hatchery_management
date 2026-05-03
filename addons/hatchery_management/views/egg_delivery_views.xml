@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- LIST -->
+    <record id="view_egg_delivery_list" model="ir.ui.view">
+        <field name="name">hatchery.egg.delivery.list</field>
+        <field name="model">hatchery.egg.delivery</field>
+        <field name="arch" type="xml">
+            <list string="Partiyalar" class="hatchery_partiya_list">
+                <field name="name" string="Nomi"/>
+                <field name="receiver_id" string="Qabul qiluvchi"/>
+                <field name="total_eggs_received" string="Jami tuxumlar"/>
+                <field name="incubation_eggs" string="Inkubatsiyaga kiradi"/>
+                <field name="total_expected_chick_count" string="Kutilgan jo'jalar"/>
+                <field name="arrival_date" string="Sana"/>
+                <field name="arrival_time" widget="float_time" string="Vaqt"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- FORM -->
+    <record id="view_egg_delivery_form" model="ir.ui.view">
+        <field name="name">hatchery.egg.delivery.form</field>
+        <field name="model">hatchery.egg.delivery</field>
+        <field name="arch" type="xml">
+            <form string="Partiya">
+                <sheet>
+                    <div class="oe_title mb-3">
+                        <h1 class="mb-0">
+                            <field name="name" class="text-primary" placeholder="Partiya nomini kiriting..."/>
+                        </h1>
+                    </div>
+
+                    <!-- KPI kartochkalar -->
+                    <div class="row mb-4">
+                        <div class="col-3">
+                            <div class="card text-center border-primary shadow-sm">
+                                <div class="card-body py-2">
+                                    <div class="text-muted small fw-bold text-uppercase">Jami keldi</div>
+                                    <div class="fs-3 fw-bold text-primary">
+                                        <field name="total_eggs_received" readonly="1"/>
+                                    </div>
+                                    <div class="text-muted small">tuxum</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card text-center border-danger shadow-sm">
+                                <div class="card-body py-2">
+                                    <div class="text-muted small fw-bold text-uppercase">Jami yo'qotish</div>
+                                    <div class="fs-3 fw-bold text-danger">
+                                        <field name="transport_losses" readonly="1"/>
+                                    </div>
+                                    <div class="text-muted small">transport</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card text-center border-warning shadow-sm">
+                                <div class="card-body py-2">
+                                    <div class="text-muted small fw-bold text-uppercase">Yaroqsiz</div>
+                                    <div class="fs-3 fw-bold text-warning">
+                                        <field name="sorting_unusable" readonly="1"/>
+                                    </div>
+                                    <div class="text-muted small">saralashda</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card text-center border-success shadow-sm">
+                                <div class="card-body py-2">
+                                    <div class="text-muted small fw-bold text-uppercase">Inkubatsiyaga</div>
+                                    <div class="fs-3 fw-bold text-success">
+                                        <field name="incubation_eggs" readonly="1"/>
+                                    </div>
+                                    <div class="text-muted small">tuxum</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <!-- 1. Qabul va Transport -->
+                        <div class="col-4">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-header bg-primary text-white fw-bold">
+                                    <i class="fa fa-truck me-2"/> Qabul va Transport
+                                </div>
+                                <div class="card-body">
+                                    <group col="1">
+                                        <field name="arrival_date" string="Yetib kelgan kun"/>
+                                        <field name="arrival_time" widget="float_time" string="Yetib kelgan soat"/>
+                                        <field name="receiver_id" string="Qabul qiluvchi mas'ul"/>
+                                        <field name="vehicle_number" string="Moshina davlat raqami"/>
+                                        <field name="driver_name" string="Haydovchi"/>
+                                    </group>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. Harorat -->
+                        <div class="col-4">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-header bg-warning text-dark fw-bold">
+                                    <i class="fa fa-thermometer-half me-2"/> Harorat ko`rsatkichlari (°C)
+                                </div>
+                                <div class="card-body">
+                                    <group col="1">
+                                        <field name="outside_temp" string="Tashqaridagi harorat"/>
+                                        <field name="vehicle_temp" string="Moshina harorati"/>
+                                        <field name="egg_temp" string="Tuxum harorati"/>
+                                        <field name="room_temp" string="Xona harorati"/>
+                                        <field name="storage_temp" string="Ombor harorati"/>
+                                    </group>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Tuxumlar hisobi -->
+                        <div class="col-4">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-header bg-danger text-white fw-bold">
+                                    <i class="fa fa-bar-chart me-2"/> Tuxumlar hisobi
+                                </div>
+                                <div class="card-body">
+                                    <group col="1">
+                                        <field name="total_eggs_received" string="Jami kelgan"/>
+                                        <field name="transport_losses" string="Yo'ldagi yo'qotish"/>
+                                        <field name="unloading_losses" string="Tushirishdagi yo'qotish"/>
+                                        <field name="sorting_unusable" string="Yaroqsiz (saralashda)"/>
+                                        <field name="sorting_losses" string="Yo'qotish (saralashda)"/>
+                                    </group>
+                                    <div class="alert alert-success mt-2 mb-0 text-center py-2">
+                                        <strong>Inkubatsiyaga kirgan:</strong>
+                                        <span class="fs-5 ms-2 fw-bold">
+                                            <field name="incubation_eggs" readonly="1"/>
+                                        </span> ta
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sort taqsimoti -->
+                    <div class="card shadow-sm mt-2">
+                        <div class="card-header bg-dark text-white fw-bold">
+                            <i class="fa fa-list me-2"/> Sort bo`yicha taqsimot
+                        </div>
+                        <div class="card-body p-0">
+                            <field name="line_ids" nolabel="1">
+                                <list editable="bottom">
+                                    <field name="norm_id" string="Kategoriya / Yosh"/>
+                                    <field name="egg_count" string="Tuxum soni"/>
+                                    <field name="hatch_rate" string="Chiqish (%)" readonly="1"/>
+                                    <field name="expected_chick_count" string="Kutilgan jo'ja" readonly="1"/>
+                                </list>
+                            </field>
+                        </div>
+                        <div class="card-footer text-end" invisible="not line_ids">
+                            <strong>Jami kutilgan jo'ja: </strong>
+                            <field name="total_expected_chick_count" readonly="1" class="fw-bold text-success"/>
+                        </div>
+                    </div>
+
+                    <field name="notes" placeholder="Izoh..." class="mt-3"/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_egg_delivery" model="ir.actions.act_window">
+        <field name="name">Partiyalar</field>
+        <field name="res_model">hatchery.egg.delivery</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_norm_list" model="ir.ui.view">
+        <field name="name">hatchery.norm.standard.list</field>
+        <field name="model">hatchery.norm.standard</field>
+        <field name="arch" type="xml">
+            <list string="Normativ Standartlar" editable="bottom" class="hatchery_norm_list">
+                <field name="category" string="Kategoriya"/>
+                <field name="age_weeks" string="Yoshi (Hafta)"/>
+                <field name="hatch_rate" string="Chiqish (%)"/>
+                <field name="name" string="Nomi" readonly="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_norm_standard" model="ir.actions.act_window">
+        <field name="name">Normativ Standartlar</field>
+        <field name="res_model">hatchery.norm.standard</field>
+        <field name="view_mode">list</field>
+    </record>
+</odoo>
