@@ -1,30 +1,25 @@
 /* ===== DASHBOARD — Full screen, clean design ===== */
 
-/* ===== DASHBOARD FULL SCREEN ===== */
-
 /* Breadcrumb yashirish */
 .o_form_view_container:has(.hatchery_dashboard_sheet) .o_control_panel {
     display: none !important;
 }
 
-/* o_content — to'liq balandlik, fon rangi */
+/* Odoo form chrome: dashboard should use the whole content area */
 .o_form_view_container:has(.hatchery_dashboard_sheet) .o_content,
-.o_form_view_container:has(.hatchery_dashboard_sheet) .o_form_renderer {
+.o_form_view_container:has(.hatchery_dashboard_sheet) .o_form_renderer,
+.o_form_view_container:has(.hatchery_dashboard_sheet) .o_form_view,
+.o_form_view_container:has(.hatchery_dashboard_sheet) .o_form_sheet_bg {
     background: #f0f2f5 !important;
     height: 100% !important;
-}
-
-/* Sheet background */
-.o_form_sheet_bg.hatchery_dashboard_sheet {
-    background: #f0f2f5 !important;
-    padding: 0 !important;
+    min-height: calc(100vh - 46px) !important;
     width: 100% !important;
-    height: 100% !important;
-    min-height: 100% !important;
+    max-width: none !important;
+    overflow-x: hidden !important;
 }
 
-/* Sheet — chegarasiz, shaffof, to'liq */
-.o_form_sheet_bg.hatchery_dashboard_sheet .o_form_sheet {
+.o_form_view_container:has(.hatchery_dashboard_sheet) .o_form_sheet,
+.o_form_view .hatchery_dashboard_sheet {
     background: transparent !important;
     box-shadow: none !important;
     border: none !important;
@@ -33,8 +28,33 @@
     max-width: 100% !important;
     width: 100% !important;
     margin: 0 !important;
-    padding: 24px 32px !important;
-    min-height: 100% !important;
+    padding: 28px 40px 44px !important;
+    min-height: calc(100vh - 46px) !important;
+}
+
+.hatchery_dashboard_sheet .o_group,
+.hatchery_dashboard_sheet .o_inner_group,
+.hatchery_dashboard_sheet .o_cell,
+.hatchery_dashboard_sheet .o_field_widget,
+.hatchery_dashboard_sheet .o_field_char {
+    width: 100% !important;
+    max-width: none !important;
+}
+
+.hatchery_dashboard_sheet .o_field_widget[name="incubators_json"],
+.hatchery_dashboard_sheet .o_field_widget[name="loss_chart_data"] {
+    display: block !important;
+}
+
+.hatchery_dashboard_shell {
+    width: 100%;
+    min-height: calc(100vh - 118px);
+}
+
+.hatchery_dashboard_grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 34px;
 }
 
 /* ===== KUNLIK JURNAL ===== */
@@ -385,18 +405,171 @@
 /* ===== SECTION ===== */
 /* Section */
 .hatchery_section {
-    margin-bottom: 32px;
+    margin-bottom: 0;
+    width: 100%;
 }
 
 .hatchery_section_title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-size: 15px;
-    font-weight: 700;
-    color: #495057;
+    font-weight: 800;
+    color: #3f4752;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #e9ecef;
-    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e1e6ed;
+    margin-bottom: 18px;
+}
+
+.hatch-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 18px;
+    align-items: stretch;
+    width: 100%;
+}
+
+.hatch-inc-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 154px;
+    background: #ffffff;
+    border: 1px solid #e4e9f0;
+    border-left: 6px solid #a7b0ba;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+    overflow: hidden;
+}
+
+.hatch-inc-card.is-loaded {
+    border-left-color: #38a169;
+}
+
+.hatch-inc-card.is-empty {
+    border-left-color: #a7b0ba;
+}
+
+.hatch-inc-card.is-broken {
+    border-left-color: #dc3545;
+}
+
+.hatch-inc-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    border-bottom: 1px solid #edf1f5;
+}
+
+.hatch-inc-name {
+    min-width: 0;
+    color: #242a31;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.hatch-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.hatch-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.hatch-badge-loaded {
+    background: #dff8eb;
+    color: #276749;
+}
+
+.hatch-badge-empty {
+    background: #f1f3f5;
+    color: #68717b;
+}
+
+.hatch-badge-broken {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.hatch-inc-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    padding: 12px 16px 14px;
+}
+
+.hatch-inc-row {
+    display: grid;
+    grid-template-columns: minmax(78px, 0.42fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+    min-height: 28px;
+    border-bottom: 1px solid #f1f4f7;
+}
+
+.hatch-inc-row:last-child {
+    border-bottom: none;
+}
+
+.hatch-inc-label {
+    color: #747e89;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.hatch-inc-value {
+    min-width: 0;
+    color: #2c333a;
+    font-size: 14px;
+    font-weight: 800;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.hatch-inc-link {
+    color: #2374f5;
+}
+
+.hatch-inc-exit {
+    color: #f0792f;
+}
+
+@media (min-width: 1600px) {
+    .hatch-cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 900px) {
+    .o_form_view .hatchery_dashboard_sheet {
+        padding: 20px 18px 32px !important;
+    }
+
+    .hatch-cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
 }
 
 /* KPI card */

@@ -3,8 +3,8 @@ import { Component, xml } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { standardFieldProps } from "@web/views/fields/standard_field_props";
 
-const W = 900, H = 220;
-const PAD = { top: 24, right: 20, bottom: 40, left: 50 };
+const W = 1280, H = 340;
+const PAD = { top: 26, right: 36, bottom: 58, left: 58 };
 const CW = W - PAD.left - PAD.right;
 const CH = H - PAD.top - PAD.bottom;
 

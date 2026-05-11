@@ -5,8 +5,7 @@
         <field name="model">hatchery.dashboard</field>
         <field name="arch" type="xml">
             <form create="false" edit="false" delete="false">
-                <sheet class="hatchery_dashboard_sheet"
-                       style="max-width:100%!important;width:100%!important;margin:0!important;padding:24px 32px!important;box-shadow:none!important;border:none!important;background:transparent!important;min-height:100%!important;">
+                <sheet class="hatchery_dashboard_sheet">
 
                     <!-- Hidden fields -->
                     <field name="date_from" invisible="1"/>
@@ -14,24 +13,28 @@
                     <field name="loss_chart_data" invisible="1"/>
                     <field name="incubators_json" invisible="1"/>
 
-                    <!-- 1. INKUBATORLAR HOLATI -->
-                    <div class="hatchery_section">
-                        <div class="hatchery_section_title">
-                            <i class="fa fa-cube me-2"/>Inkubatorlar Holati
-                        </div>
-                        <field name="incubators_json"
-                               widget="hatchery_incubator_cards"
-                               nolabel="1"/>
-                    </div>
+                    <div class="hatchery_dashboard_shell">
+                        <div class="hatchery_dashboard_grid">
+                            <!-- 1. INKUBATORLAR HOLATI -->
+                            <div class="hatchery_section">
+                                <div class="hatchery_section_title">
+                                    <i class="fa fa-cube"/>Inkubatorlar Holati
+                                </div>
+                                <field name="incubators_json"
+                                       widget="hatchery_incubator_cards"
+                                       nolabel="1"/>
+                            </div>
 
-                    <!-- 2. YO'QOTISHLAR STATISTIKASI -->
-                    <div class="hatchery_section">
-                        <div class="hatchery_section_title">
-                            <i class="fa fa-line-chart me-2"/>Yo'qotishlar Statistikasi
+                            <!-- 2. YO'QOTISHLAR STATISTIKASI -->
+                            <div class="hatchery_section">
+                                <div class="hatchery_section_title">
+                                    <i class="fa fa-line-chart"/>Yo'qotishlar Statistikasi
+                                </div>
+                                <field name="loss_chart_data"
+                                       widget="hatchery_line_chart"
+                                       nolabel="1"/>
+                            </div>
                         </div>
-                        <field name="loss_chart_data"
-                               widget="hatchery_line_chart"
-                               nolabel="1"/>
                     </div>
 
                 </sheet>

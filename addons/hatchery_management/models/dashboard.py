@@ -57,7 +57,7 @@ class HatcheryDashboard(models.TransientModel):
 
     def _compute_incubators(self):
         """Barcha inkubatorlar holati."""
-        incubators = self.env['hatchery.incubator'].search([], order='name')
+        incubators = self.env['hatchery.incubator'].search([], order='id asc')
         result = []
         for inc in incubators:
             batch = inc.active_batch_id
