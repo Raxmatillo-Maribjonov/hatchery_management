@@ -1,0 +1,25 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+
+# IDE/editor
+.idea/
+.vscode/
+
+# Odoo/local runtime
+*.log
+*.pid
+sessions/
+filestore/
+
+# Local secrets
+.env
+*.local

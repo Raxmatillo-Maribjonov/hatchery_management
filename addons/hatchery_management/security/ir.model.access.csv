@@ -8,5 +8,3 @@ access_egg_delivery_line,hatchery.egg.delivery.line,model_hatchery_egg_delivery_
 access_batch_admin,hatchery.incubation.batch,model_hatchery_incubation_batch,base.group_user,1,1,1,1
 access_incubation_log,hatchery.incubation.log,model_hatchery_incubation_log,base.group_user,1,1,1,1
 access_reservation_admin,hatchery.reservation,model_hatchery_reservation,base.group_user,1,1,1,1
-access_batch_wizard,hatchery.batch.wizard,model_hatchery_batch_wizard,base.group_user,1,1,1,1
-access_batch_wizard_line,hatchery.batch.wizard.line,model_hatchery_batch_wizard_line,base.group_user,1,1,1,1

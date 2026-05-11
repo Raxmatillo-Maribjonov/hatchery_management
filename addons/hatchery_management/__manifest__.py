@@ -8,7 +8,6 @@
     'data': [
         'security/ir.model.access.csv',
         'data/norm_standard_data.xml',
-        'views/home_views.xml',
         'views/dashboard_views.xml',
         'views/egg_delivery_views.xml',
         'views/incubator_views.xml',
@@ -16,7 +15,6 @@
         'views/reservation_views.xml',
         'views/norm_standard_views.xml',
         'views/menu_views.xml',
-        'reports/osvobojdenie_report.xml',
     ],
     'assets': {
         'web.assets_backend': [
