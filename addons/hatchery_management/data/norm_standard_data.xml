@@ -51,21 +51,4 @@
         <field name="hatch_rate">75.0</field>
     </record>
 
-    <!-- 4 ta inkubator -->
-    <record id="incubator_1" model="hatchery.incubator">
-        <field name="name">Inkubator 1</field>
-        <field name="capacity">50000</field>
-    </record>
-    <record id="incubator_2" model="hatchery.incubator">
-        <field name="name">Inkubator 2</field>
-        <field name="capacity">50000</field>
-    </record>
-    <record id="incubator_3" model="hatchery.incubator">
-        <field name="name">Inkubator 3</field>
-        <field name="capacity">50000</field>
-    </record>
-    <record id="incubator_4" model="hatchery.incubator">
-        <field name="name">Inkubator 4</field>
-        <field name="capacity">50000</field>
-    </record>
 </odoo>

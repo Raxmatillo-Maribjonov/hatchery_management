@@ -8,6 +8,7 @@
     'data': [
         'security/ir.model.access.csv',
         'data/norm_standard_data.xml',
+        'views/home_views.xml',
         'views/dashboard_views.xml',
         'views/egg_delivery_views.xml',
         'views/incubator_views.xml',
@@ -23,6 +24,7 @@
             'hatchery_management/static/src/css/line_chart.css',
             'hatchery_management/static/src/xml/line_chart.xml',
             'hatchery_management/static/src/js/line_chart.js',
+            'hatchery_management/static/src/js/incubator_cards.js',
         ],
     },
     'installable': True,

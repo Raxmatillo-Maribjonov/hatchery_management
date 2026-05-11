@@ -10,7 +10,7 @@
                 <field name="receiver_id" string="Qabul qiluvchi"/>
                 <field name="total_eggs_received" string="Jami tuxumlar"/>
                 <field name="incubation_eggs" string="Inkubatsiyaga kiradi"/>
-                <field name="total_expected_chick_count" string="Kutilgan jo'jalar"/>
+                <field name="total_expected_chick_count" string="Kutilayotgan jo'jalar"/>
                 <field name="arrival_date" string="Sana"/>
                 <field name="arrival_time" widget="float_time" string="Vaqt"/>
             </list>
@@ -30,32 +30,32 @@
                         </h1>
                     </div>
 
-                    <!-- KPI kartochkalar -->
-                    <div class="row mb-4">
-                        <div class="col-3">
-                            <div class="card text-center border-primary shadow-sm">
+                    <!-- KPI kartochkalar — 5 ta -->
+                    <div class="row mb-4 g-3">
+                        <div class="col">
+                            <div class="card text-center shadow-sm h-100" style="border-top:4px solid #6B4FBB;">
                                 <div class="card-body py-2">
                                     <div class="text-muted small fw-bold text-uppercase">Jami keldi</div>
-                                    <div class="fs-3 fw-bold text-primary">
+                                    <div class="fs-3 fw-bold" style="color:#6B4FBB;">
                                         <field name="total_eggs_received" readonly="1"/>
                                     </div>
                                     <div class="text-muted small">tuxum</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-3">
-                            <div class="card text-center border-danger shadow-sm">
+                        <div class="col">
+                            <div class="card text-center shadow-sm h-100" style="border-top:4px solid #dc3545;">
                                 <div class="card-body py-2">
                                     <div class="text-muted small fw-bold text-uppercase">Jami yo'qotish</div>
                                     <div class="fs-3 fw-bold text-danger">
-                                        <field name="transport_losses" readonly="1"/>
+                                        <field name="total_losses" readonly="1"/>
                                     </div>
-                                    <div class="text-muted small">transport</div>
+                                    <div class="text-muted small">yo'l + tushirish + saralash</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-3">
-                            <div class="card text-center border-warning shadow-sm">
+                        <div class="col">
+                            <div class="card text-center shadow-sm h-100" style="border-top:4px solid #ffc107;">
                                 <div class="card-body py-2">
                                     <div class="text-muted small fw-bold text-uppercase">Yaroqsiz</div>
                                     <div class="fs-3 fw-bold text-warning">
@@ -65,8 +65,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-3">
-                            <div class="card text-center border-success shadow-sm">
+                        <div class="col">
+                            <div class="card text-center shadow-sm h-100" style="border-top:4px solid #28a745;">
                                 <div class="card-body py-2">
                                     <div class="text-muted small fw-bold text-uppercase">Inkubatsiyaga</div>
                                     <div class="fs-3 fw-bold text-success">
@@ -76,17 +76,74 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col">
+                            <div class="card text-center shadow-sm h-100" style="border-top:4px solid #17a2b8;">
+                                <div class="card-body py-2">
+                                    <div class="text-muted small fw-bold text-uppercase">Kutilgan jo'ja</div>
+                                    <div class="fs-3 fw-bold text-info">
+                                        <field name="total_expected_chick_count" readonly="1"/>
+                                    </div>
+                                    <div class="text-muted small">dona</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sort bo'yicha taqsimot — birinchi, alohida card -->
+                    <div class="card shadow-sm mb-3" style="border-left: 4px solid #6B4FBB;">
+                        <div class="card-header fw-bold" style="background:#6B4FBB; color:white;">
+                            <i class="fa fa-list me-2"/> Sort bo`yicha taqsimot
+                        </div>
+                        <div class="row g-0">
+                            <!-- Chap: jami tuxum hisobi -->
+                            <div class="col-3 border-end">
+                                <div class="p-3">
+                                    <div class="text-muted small fw-bold text-uppercase mb-2">Yo'qotishlar tafsiloti</div>
+                                    <group col="1">
+                                        <field name="total_eggs_received" string="Jami kelgan tuxum"/>
+                                        <field name="transport_losses" string="Yo'ldagi yo'qotish"/>
+                                        <field name="unloading_losses" string="Tushirishdagi yo'qotish"/>
+                                        <field name="sorting_unusable" string="Yaroqsiz (saralashda)"/>
+                                        <field name="sorting_losses" string="Saralashdagi yo'qotish"/>
+                                    </group>
+                                    <div class="alert alert-success mt-2 mb-0 text-center py-2">
+                                        <strong>Inkubatsiyaga kirgan:</strong>
+                                        <div class="fs-4 fw-bold text-success">
+                                            <field name="incubation_eggs" readonly="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- O'ng: sort jadvali -->
+                            <div class="col-9">
+                                <field name="line_ids" nolabel="1">
+                                    <list editable="bottom">
+                                        <field name="norm_id" string="Kategoriya / Yosh"/>
+                                        <field name="egg_count" string="Tuxum soni"/>
+                                        <field name="hatch_rate" string="Chiqish (%)" readonly="1"/>
+                                        <field name="expected_chick_count" string="Kutilgan jo'ja" readonly="1"/>
+                                    </list>
+                                </field>
+                                <div class="px-3 py-2 text-end border-top" invisible="not line_ids"
+                                     style="background:#f8f9fa;">
+                                    <strong>Jami kutilgan jo'ja: </strong>
+                                    <span class="fs-5 fw-bold text-success ms-2">
+                                        <field name="total_expected_chick_count" readonly="1"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="row mb-3">
                         <!-- 1. Qabul va Transport -->
-                        <div class="col-4">
+                        <div class="col-6">
                             <div class="card shadow-sm h-100">
                                 <div class="card-header bg-primary text-white fw-bold">
                                     <i class="fa fa-truck me-2"/> Qabul va Transport
                                 </div>
                                 <div class="card-body">
-                                    <group col="1">
+                                    <group col="2">
                                         <field name="arrival_date" string="Yetib kelgan kun"/>
                                         <field name="arrival_time" widget="float_time" string="Yetib kelgan soat"/>
                                         <field name="receiver_id" string="Qabul qiluvchi mas'ul"/>
@@ -98,13 +155,13 @@
                         </div>
 
                         <!-- 2. Harorat -->
-                        <div class="col-4">
+                        <div class="col-6">
                             <div class="card shadow-sm h-100">
                                 <div class="card-header bg-warning text-dark fw-bold">
                                     <i class="fa fa-thermometer-half me-2"/> Harorat ko`rsatkichlari (°C)
                                 </div>
                                 <div class="card-body">
-                                    <group col="1">
+                                    <group col="2">
                                         <field name="outside_temp" string="Tashqaridagi harorat"/>
                                         <field name="vehicle_temp" string="Moshina harorati"/>
                                         <field name="egg_temp" string="Tuxum harorati"/>
@@ -114,50 +171,25 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- 3. Tuxumlar hisobi -->
-                        <div class="col-4">
-                            <div class="card shadow-sm h-100">
-                                <div class="card-header bg-danger text-white fw-bold">
-                                    <i class="fa fa-bar-chart me-2"/> Tuxumlar hisobi
-                                </div>
-                                <div class="card-body">
-                                    <group col="1">
-                                        <field name="total_eggs_received" string="Jami kelgan"/>
-                                        <field name="transport_losses" string="Yo'ldagi yo'qotish"/>
-                                        <field name="unloading_losses" string="Tushirishdagi yo'qotish"/>
-                                        <field name="sorting_unusable" string="Yaroqsiz (saralashda)"/>
-                                        <field name="sorting_losses" string="Yo'qotish (saralashda)"/>
-                                    </group>
-                                    <div class="alert alert-success mt-2 mb-0 text-center py-2">
-                                        <strong>Inkubatsiyaga kirgan:</strong>
-                                        <span class="fs-5 ms-2 fw-bold">
-                                            <field name="incubation_eggs" readonly="1"/>
-                                        </span> ta
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
-                    <!-- Sort taqsimoti -->
-                    <div class="card shadow-sm mt-2">
-                        <div class="card-header bg-dark text-white fw-bold">
-                            <i class="fa fa-list me-2"/> Sort bo`yicha taqsimot
+                    <!-- Buyurtmalar -->
+                    <div class="card shadow-sm mt-3">
+                        <div class="card-header fw-bold"
+                             style="background:#17a2b8; color:white;">
+                            <i class="fa fa-bookmark me-2"/> Buyurtmalar
                         </div>
                         <div class="card-body p-0">
-                            <field name="line_ids" nolabel="1">
-                                <list editable="bottom">
-                                    <field name="norm_id" string="Kategoriya / Yosh"/>
-                                    <field name="egg_count" string="Tuxum soni"/>
-                                    <field name="hatch_rate" string="Chiqish (%)" readonly="1"/>
-                                    <field name="expected_chick_count" string="Kutilgan jo'ja" readonly="1"/>
+                            <field name="reservation_ids" nolabel="1">
+                                <list>
+                                    <field name="name" string="Buyurtma #"/>
+                                    <field name="client_name" string="Mijoz"/>
+                                    <field name="client_phone" string="Telefon"/>
+                                    <field name="chick_count" string="Jo'ja soni"/>
+                                    <field name="reservation_date" string="Sana"/>
+                                    <field name="state" string="Holat"/>
                                 </list>
                             </field>
-                        </div>
-                        <div class="card-footer text-end" invisible="not line_ids">
-                            <strong>Jami kutilgan jo'ja: </strong>
-                            <field name="total_expected_chick_count" readonly="1" class="fw-bold text-success"/>
                         </div>
                     </div>
 
@@ -166,6 +198,37 @@
                 <chatter/>
             </form>
         </field>
+    </record>
+
+    <!-- Loss report graph — barcha 4 yo'qotish bir vaqtda -->
+    <record id="view_loss_report_graph" model="ir.ui.view">
+        <field name="name">hatchery.loss.report.graph</field>
+        <field name="model">hatchery.loss.report</field>
+        <field name="arch" type="xml">
+            <graph string="Yo'qotishlar statistikasi" type="bar" stacked="0">
+                <field name="arrival_label" type="row"/>
+                <field name="loss_type" type="col"/>
+                <field name="loss_value" type="measure" string="Miqdor"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_loss_report_pivot" model="ir.ui.view">
+        <field name="name">hatchery.loss.report.pivot</field>
+        <field name="model">hatchery.loss.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Yo'qotishlar jadvali">
+                <field name="arrival_label" type="row"/>
+                <field name="loss_type" type="col"/>
+                <field name="loss_value" type="measure" string="Miqdor"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_loss_report" model="ir.actions.act_window">
+        <field name="name">Yo'qotishlar statistikasi</field>
+        <field name="res_model">hatchery.loss.report</field>
+        <field name="view_mode">graph,pivot</field>
     </record>
 
     <record id="action_egg_delivery" model="ir.actions.act_window">

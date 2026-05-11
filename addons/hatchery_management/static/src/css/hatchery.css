@@ -37,6 +37,38 @@
     min-height: 100% !important;
 }
 
+/* ===== KUNLIK JURNAL ===== */
+.hatchery_log_list thead th {
+    text-align: center !important;
+    background: #f8f9fa !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    color: #495057 !important;
+}
+
+.hatchery_log_list tbody td {
+    text-align: center !important;
+    font-size: 13px !important;
+}
+
+.hatchery_log_list tbody td:first-child {
+    font-weight: 700 !important;
+    color: #495057 !important;
+}
+
+
+/* ===== BUYURTMALAR KANBAN — teng ustunlar ===== */
+.hatchery_buyurtma_kanban .o_kanban_renderer {
+    align-items: flex-start !important;
+}
+
+.hatchery_buyurtma_kanban .o_kanban_group {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    max-width: none !important;
+}
+
+
 /* ===== DATE FILTER INPUT ===== */
 .hatchery_drp_input {
     display: flex;
@@ -531,17 +563,37 @@
     text-align: right !important;
 }
 
-.hatchery_inkubatsiya_list thead th:not(.o_list_record_selector):first-of-type,
-.hatchery_inkubatsiya_list tbody td:not(.o_list_record_selector):first-of-type {
-    text-align: left !important;
-}
-
 .hatchery_inkubatsiya_list thead th {
     text-align: right !important;
 }
 
-.hatchery_inkubatsiya_list thead th:not(.o_list_record_selector):first-of-type {
+/* Birinchi ma'lumot ustuni */
+.hatchery_inkubatsiya_list thead th:nth-child(2),
+.hatchery_inkubatsiya_list tbody td:nth-child(2) {
     text-align: left !important;
+}
+
+/* Inkubatsiyalar (oxirgi) ustuni — o'ngga */
+.hatchery_inkubatsiya_list thead th:last-child {
+    text-align: right !important;
+}
+.hatchery_inkubatsiya_list tbody td[name="incubator_ids"] {
+    vertical-align: middle !important;
+}
+.hatchery_inkubatsiya_list tbody td[name="incubator_ids"] > div {
+    display: flex !important;
+    justify-content: flex-end !important;
+    flex-wrap: wrap !important;
+    gap: 3px !important;
+    width: 100% !important;
+}
+.hatchery_inkubatsiya_list tbody td[name="incubator_ids"] .o_field_many2many_tags,
+.hatchery_inkubatsiya_list tbody td[name="incubator_ids"] .o_field_widget {
+    display: flex !important;
+    justify-content: flex-end !important;
+    flex-wrap: wrap !important;
+    gap: 3px !important;
+    width: 100% !important;
 }
 
 
@@ -556,15 +608,12 @@
     text-align: right !important;
 }
 
-.hatchery_partiya_list thead th:not(.o_list_record_selector):first-of-type,
-.hatchery_partiya_list tbody td:not(.o_list_record_selector):first-of-type {
-    text-align: left !important;
-}
-
 .hatchery_partiya_list thead th {
     text-align: right !important;
 }
 
-.hatchery_partiya_list thead th:not(.o_list_record_selector):first-of-type {
+/* Birinchi ma'lumot ustuni */
+.hatchery_partiya_list thead th:nth-child(2),
+.hatchery_partiya_list tbody td:nth-child(2) {
     text-align: left !important;
 }

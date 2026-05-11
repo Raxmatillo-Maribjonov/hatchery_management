@@ -3,5 +3,7 @@ from . import incubator
 from . import norm_standard
 from . import delivery_line
 from . import egg_delivery
+from . import loss_report
 from . import incubation_batch
+from . import incubation_log
 from . import reservation

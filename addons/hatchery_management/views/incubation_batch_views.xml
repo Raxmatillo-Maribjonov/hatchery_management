@@ -10,13 +10,14 @@
                   decoration-success="state == 'hatched'"
                   decoration-info="state == 'in_progress'"
                   decoration-muted="state == 'done'">
-                <field name="incubator_id" string="Inkubator"/>
+                <field name="name" string="Nomi"/>
                 <field name="delivery_id" string="Partiya"/>
-                <field name="zapravka_date" string="Zapravka kuni"/>
-                <field name="total_eggs" string="Tuxum"/>
-                <field name="total_expected_chick" string="Kutilgan jo'ja"/>
-                <field name="expected_hatch_date" string="Chiqish sanasi"/>
+                <field name="total_eggs" string="Jami tuxumlar"/>
+                <field name="total_expected_chick" string="Kutilayotgan jo'jalar"/>
+                <field name="entry_datetime" string="Kirish sanasi"/>
+                <field name="exit_datetime" string="Chiqish sanasi"/>
                 <field name="state" string="Holat"/>
+                <field name="incubator_ids" string="Inkubatsiyalar" widget="many2many_tags"/>
             </list>
         </field>
     </record>
@@ -42,12 +43,13 @@
                 </header>
                 <sheet>
                     <div class="oe_title">
-                        <h1><field name="name" readonly="1" class="text-primary"/></h1>
+                        <h1><field name="name" class="text-primary"
+                                   placeholder="Inkubatsiya nomini kiriting..."/></h1>
                     </div>
 
-                    <!-- KPI -->
+                    <!-- KPI — 3 ta -->
                     <div class="row mb-4">
-                        <div class="col-3">
+                        <div class="col-4">
                             <div class="card text-center shadow-sm h-100"
                                  style="border-top: 4px solid #007bff;">
                                 <div class="card-body py-3">
@@ -59,7 +61,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-4">
                             <div class="card text-center shadow-sm h-100"
                                  style="border-top: 4px solid #28a745;">
                                 <div class="card-body py-3">
@@ -71,18 +73,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-3">
-                            <div class="card text-center shadow-sm h-100"
-                                 style="border-top: 4px solid #ffc107;">
-                                <div class="card-body py-3">
-                                    <div class="text-muted small fw-bold text-uppercase mb-1">Chiqish Sanasi</div>
-                                    <div class="fw-bold text-warning mt-3">
-                                        <field name="expected_hatch_date" readonly="1"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-3">
+                        <div class="col-4">
                             <div class="card text-center shadow-sm h-100"
                                  style="border-top: 4px solid #17a2b8;">
                                 <div class="card-body py-3">
@@ -99,74 +90,93 @@
                         </div>
                     </div>
 
-                    <!-- MA'LUMOTLAR -->
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="card shadow-sm mb-3">
-                                <div class="card-header fw-bold"
-                                     style="background:#6B4FBB; color:white;">
-                                    <i class="fa fa-cube me-2"/> Inkubatsiya ma'lumotlari
-                                </div>
-                                <div class="card-body">
-                                    <group col="2">
-                                        <field name="incubator_id" string="Inkubator"/>
-                                        <field name="zapravka_date" string="Zapravka kuni"/>
-                                        <field name="expected_hatch_date" readonly="1"
-                                               string="Kutilgan chiqish sanasi"/>
-                                        <field name="delivery_id" string="Partiya"/>
-                                    </group>
-                                </div>
-                            </div>
+                    <!-- Birlashtirilgan card: Inkubatsiya ma'lumotlari + Inkubatorlar -->
+                    <div class="card shadow-sm mb-3">
+                        <div class="card-header fw-bold"
+                             style="background:#6B4FBB; color:white;">
+                            <i class="fa fa-cube me-2"/> Inkubatsiya ma'lumotlari
                         </div>
-                        <div class="col-6">
-                            <div class="card shadow-sm mb-3">
-                                <div class="card-header fw-bold"
-                                     style="background:#28a745; color:white;">
-                                    <i class="fa fa-bar-chart me-2"/> Natija
-                                </div>
-                                <div class="card-body">
-                                    <group col="2">
-                                        <field name="total_eggs" readonly="1"
-                                               string="Kirgan tuxum"/>
-                                        <field name="total_expected_chick" readonly="1"
-                                               string="Kutilgan jo'ja"/>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-5">
+                                    <group col="1">
+                                        <field name="delivery_id" string="Partiya"/>
+                                        <field name="entry_datetime"
+                                               string="Kirish sanasi va vaqti"
+                                               widget="datetime"/>
+                                        <field name="exit_datetime"
+                                               string="Chiqish sanasi va vaqti"
+                                               widget="datetime"/>
                                         <field name="actual_chick_count"
-                                               string="Haqiqiy jo'ja"
+                                               string="Haqiqiy chiqgan jo'ja"
                                                invisible="state not in ('hatched','done')"/>
                                     </group>
-                                    <div class="alert alert-info mt-2 mb-0 py-2 text-center small"
+                                    <div class="alert alert-info py-2 text-center small mt-2"
                                          invisible="state != 'in_progress'">
-                                        <i class="fa fa-clock-o me-1"/>
-                                        Inkubatsiya jarayonida...
+                                        <i class="fa fa-clock-o me-1"/> Inkubatsiya jarayonida...
                                     </div>
-                                    <div class="alert alert-success mt-2 mb-0 py-2 text-center small"
+                                    <div class="alert alert-success py-2 text-center small mt-2"
                                          invisible="state != 'hatched'">
-                                        <i class="fa fa-check me-1"/>
-                                        Jo'ja muvaffaqiyatli chiqdi!
+                                        <i class="fa fa-check me-1"/> Jo'ja muvaffaqiyatli chiqdi!
+                                    </div>
+                                </div>
+                                <div class="col-7 border-start">
+                                    <div class="text-muted small fw-bold text-uppercase mb-2 ps-3">
+                                        <i class="fa fa-list-ul me-1"/> Inkubatorlar (faqat bo'sh)
+                                    </div>
+                                    <field name="incubator_ids"
+                                           widget="many2many_checkboxes"
+                                           nolabel="1"
+                                           domain="[('state','=','empty'),('is_broken','=',False)]"/>
+                                    <field name="selected_capacity" invisible="1"/>
+                                    <field name="capacity_warning" invisible="1"/>
+                                    <field name="capacity_diff" invisible="1"/>
+                                    <div invisible="not incubator_ids or not capacity_message" class="mt-2">
+                                        <div class="d-flex align-items-center gap-2 px-3 py-2 rounded"
+                                             invisible="capacity_warning != 'ok'"
+                                             style="background:#d1fae5; color:#065f46; font-size:13px; font-weight:600;">
+                                            <i class="fa fa-check-circle"/>
+                                            <field name="capacity_message" readonly="1"/>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-2 px-3 py-2 rounded"
+                                             invisible="capacity_warning != 'over'"
+                                             style="background:#fef9c3; color:#854d0e; font-size:13px; font-weight:600;">
+                                            <i class="fa fa-exclamation-triangle"/>
+                                            <field name="capacity_message" readonly="1"/>
+                                        </div>
+                                        <div class="d-flex align-items-center gap-2 px-3 py-2 rounded"
+                                             invisible="capacity_warning != 'under'"
+                                             style="background:#fee2e2; color:#991b1b; font-size:13px; font-weight:600;">
+                                            <i class="fa fa-times-circle"/>
+                                            <field name="capacity_message" readonly="1"/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- REZERVLAR (faqat chiqgandan keyin) -->
-                    <div class="card shadow-sm" invisible="state not in ('hatched','done')">
+                    <!-- KUNLIK JURNAL -->
+                    <div class="card shadow-sm mt-3">
                         <div class="card-header fw-bold"
-                             style="background:#17a2b8; color:white;">
-                            <i class="fa fa-bookmark me-2"/> Rezervlar
+                             style="background:#495057; color:white;">
+                            <i class="fa fa-table me-2"/> Kunlik Monitoring Jurnali
                         </div>
                         <div class="card-body p-0">
-                            <field name="reservation_ids" nolabel="1">
-                                <list>
-                                    <field name="client_name" string="Mijoz"/>
-                                    <field name="client_phone" string="Telefon"/>
-                                    <field name="chick_count" string="Jo'ja soni"/>
-                                    <field name="reservation_date" string="Sana"/>
-                                    <field name="state" string="Holat"/>
+                            <field name="log_ids" nolabel="1">
+                                <list editable="bottom"
+                                      class="hatchery_log_list">
+                                    <field name="day_number" string="Kun" width="60px"/>
+                                    <field name="date" string="Sana" width="120px"/>
+                                    <field name="temperature" string="Harorat (°C)" width="110px"/>
+                                    <field name="humidity" string="Nam/Term" width="100px"/>
+                                    <field name="damper_position" string="Zaslon holati" width="120px"/>
+                                    <field name="inspection_note" string="Tekshiruv belgisi"/>
                                 </list>
                             </field>
                         </div>
                     </div>
+
 
                 </sheet>
                 <chatter/>

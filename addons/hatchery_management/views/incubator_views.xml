@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- LIST — Sozlamalar uchun oddiy ko'rinish -->
+    <!-- LIST — Sozlamalar uchun -->
     <record id="view_incubator_list" model="ir.ui.view">
         <field name="name">hatchery.incubator.list</field>
         <field name="model">hatchery.incubator</field>
@@ -8,7 +8,8 @@
             <list string="Inkubatorlar" editable="bottom" class="hatchery_incubator_list">
                 <field name="name" string="Nomi"/>
                 <field name="capacity" string="Sig'im (dona)"/>
-                <field name="date_added" string="Qo'shilgan sana"/>
+                <field name="date_added" string="Sana"/>
+                <field name="is_broken" string="Buzilgan"/>
             </list>
         </field>
     </record>
@@ -19,49 +20,83 @@
         <field name="view_mode">list</field>
     </record>
 
-    <!-- KANBAN — Inkubatsiya bo'limida ko'rish uchun -->
+    <!-- KANBAN — Bosh sahifa uchun (barcha inkubatorlar) -->
     <record id="view_incubator_kanban" model="ir.ui.view">
         <field name="name">hatchery.incubator.kanban</field>
         <field name="model">hatchery.incubator</field>
         <field name="arch" type="xml">
-            <kanban>
+            <kanban create="false" delete="false">
                 <field name="name"/>
                 <field name="state"/>
                 <field name="capacity"/>
-                <field name="active_batch_id"/>
+                <field name="is_broken"/>
+                <field name="active_delivery_name"/>
+                <field name="active_entry_datetime"/>
+                <field name="active_exit_datetime"/>
                 <templates>
                     <t t-name="card">
-                        <div class="oe_kanban_card oe_kanban_global_click p-0">
-                            <div t-attf-style="
-                                background: #{record.state.raw_value == 'loaded' ? '#28a745' : '#6c757d'};
-                                color: white; padding: 10px 14px; border-radius: 6px 6px 0 0;">
-                                <h5 class="mb-0">
-                                    <i class="fa fa-cube me-2"/>
-                                    <t t-esc="record.name.value"/>
-                                </h5>
-                                <small>
-                                    <t t-if="record.state.raw_value == 'loaded'">
-                                        Zapravka qilingan
-                                    </t>
-                                    <t t-else="">Bo`sh</t>
-                                </small>
-                            </div>
-                            <div class="p-3 text-center">
-                                <div class="row">
-                                    <div class="col-6 border-end">
-                                        <div class="text-muted small">Sig`im</div>
-                                        <strong><t t-esc="record.capacity.value"/></strong>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="text-muted small">Faol partiya</div>
-                                        <t t-if="record.active_batch_id.value">
-                                            <span class="badge bg-success">Mavjud</span>
-                                        </t>
-                                        <t t-else="">
-                                            <span class="badge bg-secondary">Yo`q</span>
-                                        </t>
-                                    </div>
+                        <div t-attf-style="
+                            border-left: 5px solid #{
+                                record.is_broken.raw_value ? '#dc3545' :
+                                record.state.raw_value == 'loaded' ? '#28a745' : '#adb5bd'};
+                            border-radius: 8px;
+                            background: white;
+                            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+                            overflow: hidden;
+                            height: 100%;">
+
+                            <!-- Header -->
+                            <div style="padding: 12px 16px; border-bottom: 1px solid #f1f3f5;">
+                                <div style="display:flex; justify-content:space-between; align-items:center;">
+                                    <strong style="font-size:15px; color:#212529;">
+                                        <t t-esc="record.name.value"/>
+                                    </strong>
+                                    <span t-if="record.is_broken.raw_value"
+                                          style="background:#fee2e2; color:#991b1b; font-size:11px; font-weight:700; padding:2px 8px; border-radius:20px;">
+                                        ⚠ Buzilgan
+                                    </span>
+                                    <span t-elif="record.state.raw_value == 'loaded'"
+                                          style="background:#d1fae5; color:#065f46; font-size:11px; font-weight:700; padding:2px 8px; border-radius:20px;">
+                                        ● Faol
+                                    </span>
+                                    <span t-else=""
+                                          style="background:#f1f3f5; color:#6c757d; font-size:11px; font-weight:700; padding:2px 8px; border-radius:20px;">
+                                        ○ Bo'sh
+                                    </span>
                                 </div>
+                            </div>
+
+                            <!-- Body -->
+                            <div style="padding: 12px 16px;">
+                                <!-- Sig'im -->
+                                <div style="display:flex; justify-content:space-between; padding:5px 0; border-bottom:1px solid #f8f9fa;">
+                                    <span style="color:#6c757d; font-size:13px;">Sig'im</span>
+                                    <strong style="font-size:13px;">
+                                        <t t-esc="record.capacity.value"/> ta
+                                    </strong>
+                                </div>
+
+                                <!-- Faol bo'lsa: partiya va sanalar -->
+                                <t t-if="record.state.raw_value == 'loaded'">
+                                    <div style="display:flex; justify-content:space-between; padding:5px 0; border-bottom:1px solid #f8f9fa;">
+                                        <span style="color:#6c757d; font-size:13px;">Partiya</span>
+                                        <strong style="font-size:13px; color:#007bff;">
+                                            <t t-esc="record.active_delivery_name.value"/>
+                                        </strong>
+                                    </div>
+                                    <div style="display:flex; justify-content:space-between; padding:5px 0; border-bottom:1px solid #f8f9fa;">
+                                        <span style="color:#6c757d; font-size:13px;">Kirish</span>
+                                        <span style="font-size:13px;">
+                                            <t t-esc="record.active_entry_datetime.value"/>
+                                        </span>
+                                    </div>
+                                    <div style="display:flex; justify-content:space-between; padding:5px 0;">
+                                        <span style="color:#6c757d; font-size:13px;">Chiqish</span>
+                                        <span style="font-size:13px; color:#e67e22; font-weight:600;">
+                                            <t t-esc="record.active_exit_datetime.value"/>
+                                        </span>
+                                    </div>
+                                </t>
                             </div>
                         </div>
                     </t>
@@ -71,8 +106,8 @@
     </record>
 
     <record id="action_incubator_kanban" model="ir.actions.act_window">
-        <field name="name">Inkubatorlar holati</field>
+        <field name="name">Inkubatorlar Holati</field>
         <field name="res_model">hatchery.incubator</field>
-        <field name="view_mode">kanban,list</field>
+        <field name="view_mode">kanban</field>
     </record>
 </odoo>

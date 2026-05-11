@@ -5,12 +5,12 @@
         <field name="name">hatchery.reservation.kanban</field>
         <field name="model">hatchery.reservation</field>
         <field name="arch" type="xml">
-            <kanban default_group_by="state">
+            <kanban default_group_by="state" class="hatchery_buyurtma_kanban">
                 <field name="client_name"/>
                 <field name="client_phone"/>
                 <field name="chick_count"/>
                 <field name="state"/>
-                <field name="batch_id"/>
+                <field name="delivery_id"/>
                 <templates>
                     <t t-name="card">
                         <div class="oe_kanban_card oe_kanban_global_click p-0">
@@ -36,7 +36,7 @@
                                 </div>
                                 <div class="text-muted small text-center mt-1">
                                     <i class="fa fa-cube me-1"/>
-                                    <t t-esc="record.batch_id.value"/>
+                                    <t t-esc="record.delivery_id.value"/>
                                 </div>
                             </div>
                         </div>
@@ -51,13 +51,13 @@
         <field name="name">hatchery.reservation.list</field>
         <field name="model">hatchery.reservation</field>
         <field name="arch" type="xml">
-            <list string="Rezervlar"
+            <list string="Buyurtmalar"
                   decoration-success="state == 'delivered'"
                   decoration-warning="state == 'waiting'"
                   decoration-info="state == 'confirmed'"
                   decoration-danger="state == 'cancelled'">
                 <field name="name"/>
-                <field name="batch_id"/>
+                <field name="delivery_id"/>
                 <field name="client_name"/>
                 <field name="client_phone"/>
                 <field name="chick_count"/>
@@ -72,7 +72,7 @@
         <field name="name">hatchery.reservation.form</field>
         <field name="model">hatchery.reservation</field>
         <field name="arch" type="xml">
-            <form string="Rezerv">
+            <form string="Buyurtma">
                 <header>
                     <button name="action_set_waiting" string="Navbatga qo`yish"
                             type="object" invisible="state != 'confirmed'"/>
@@ -89,7 +89,6 @@
                         <h1><field name="name" class="text-primary"/></h1>
                     </div>
 
-                    <!-- KPI -->
                     <div class="row mb-4">
                         <div class="col-4">
                             <div class="card text-center border-success shadow-sm">
@@ -104,9 +103,9 @@
                         <div class="col-4">
                             <div class="card text-center border-primary shadow-sm">
                                 <div class="card-body py-3">
-                                    <div class="text-muted small fw-bold text-uppercase">Partiya</div>
-                                    <div class="fw-bold text-primary">
-                                        <field name="batch_id" readonly="1"/>
+                                    <div class="text-muted small fw-bold text-uppercase">Inkubatsiya</div>
+                                    <div class="fw-bold text-primary mt-1">
+                                        <field name="delivery_id" readonly="1"/>
                                     </div>
                                 </div>
                             </div>
@@ -115,7 +114,7 @@
                             <div class="card text-center border-secondary shadow-sm">
                                 <div class="card-body py-3">
                                     <div class="text-muted small fw-bold text-uppercase">Sana</div>
-                                    <div class="fw-bold">
+                                    <div class="fw-bold mt-1">
                                         <field name="reservation_date" readonly="1"/>
                                     </div>
                                 </div>
@@ -140,11 +139,11 @@
                         <div class="col-6">
                             <div class="card shadow-sm">
                                 <div class="card-header bg-success text-white fw-bold">
-                                    <i class="fa fa-bookmark me-2"/> Rezerv ma`lumotlari
+                                    <i class="fa fa-bookmark me-2"/> Buyurtma ma`lumotlari
                                 </div>
                                 <div class="card-body">
                                     <group col="1">
-                                        <field name="batch_id"/>
+                                        <field name="delivery_id"/>
                                         <field name="chick_count"/>
                                         <field name="reservation_date"/>
                                     </group>
@@ -161,7 +160,7 @@
     </record>
 
     <record id="action_reservation" model="ir.actions.act_window">
-        <field name="name">Rezervlar</field>
+        <field name="name">Buyurtmalar</field>
         <field name="res_model">hatchery.reservation</field>
         <field name="view_mode">kanban,list,form</field>
     </record>

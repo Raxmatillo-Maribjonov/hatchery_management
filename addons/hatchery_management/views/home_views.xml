@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Home: Inkubatorlar holati (kanban) -->
+    <record id="view_home_incubator_kanban" model="ir.ui.view">
+        <field name="name">hatchery.home.incubator.kanban</field>
+        <field name="model">hatchery.incubator</field>
+        <field name="arch" type="xml">
+            <kanban create="false" delete="false">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="capacity"/>
+                <field name="is_broken"/>
+                <field name="active_delivery_name"/>
+                <field name="active_entry_datetime"/>
+                <field name="active_exit_datetime"/>
+                <templates>
+                    <t t-name="card">
+                        <div t-attf-style="
+                            border-left: 5px solid #{
+                                record.is_broken.raw_value ? '#dc3545' :
+                                record.state.raw_value == 'loaded' ? '#28a745' : '#adb5bd'};
+                            border-radius: 8px; background: white;
+                            box-shadow: 0 1px 4px rgba(0,0,0,0.08); height:100%;">
+                            <div style="padding:12px 16px; border-bottom:1px solid #f1f3f5; display:flex; justify-content:space-between; align-items:center;">
+                                <strong style="font-size:15px; color:#212529;">
+                                    <t t-esc="record.name.value"/>
+                                </strong>
+                                <span t-if="record.is_broken.raw_value"
+                                      style="background:#fee2e2;color:#991b1b;font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;">
+                                    ⚠ Buzilgan
+                                </span>
+                                <span t-elif="record.state.raw_value == 'loaded'"
+                                      style="background:#d1fae5;color:#065f46;font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;">
+                                    ● Faol
+                                </span>
+                                <span t-else=""
+                                      style="background:#f1f3f5;color:#6c757d;font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px;">
+                                    ○ Bo'sh
+                                </span>
+                            </div>
+                            <div style="padding:12px 16px;">
+                                <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #f8f9fa;">
+                                    <span style="color:#6c757d;font-size:13px;">Sig'im</span>
+                                    <strong style="font-size:13px;"><t t-esc="record.capacity.value"/> ta</strong>
+                                </div>
+                                <t t-if="record.state.raw_value == 'loaded'">
+                                    <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #f8f9fa;">
+                                        <span style="color:#6c757d;font-size:13px;">Partiya</span>
+                                        <strong style="font-size:13px;color:#007bff;"><t t-esc="record.active_delivery_name.value"/></strong>
+                                    </div>
+                                    <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #f8f9fa;">
+                                        <span style="color:#6c757d;font-size:13px;">Kirish</span>
+                                        <span style="font-size:13px;"><t t-esc="record.active_entry_datetime.value"/></span>
+                                    </div>
+                                    <div style="display:flex;justify-content:space-between;padding:5px 0;">
+                                        <span style="color:#6c757d;font-size:13px;">Chiqish</span>
+                                        <span style="font-size:13px;color:#e67e22;font-weight:600;"><t t-esc="record.active_exit_datetime.value"/></span>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Home: Loss chart (graph) -->
+    <record id="view_home_loss_graph" model="ir.ui.view">
+        <field name="name">hatchery.home.loss.graph</field>
+        <field name="model">hatchery.loss.report</field>
+        <field name="arch" type="xml">
+            <graph string="Yo'qotishlar statistikasi" type="bar" stacked="0">
+                <field name="arrival_label" type="row"/>
+                <field name="loss_type" type="col"/>
+                <field name="loss_value" type="measure" string="Miqdor"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Action: Inkubatorlar holati (home) -->
+    <record id="action_hatchery_home" model="ir.actions.act_window">
+        <field name="name">Inkubatorlar Holati</field>
+        <field name="res_model">hatchery.incubator</field>
+        <field name="view_mode">kanban</field>
+    </record>
+
+    <!-- Action: Loss chart alohida ham ochish uchun -->
+    <record id="action_loss_chart" model="ir.actions.act_window">
+        <field name="name">Yo'qotishlar statistikasi</field>
+        <field name="res_model">hatchery.loss.report</field>
+        <field name="view_mode">graph,pivot</field>
+    </record>
+</odoo>

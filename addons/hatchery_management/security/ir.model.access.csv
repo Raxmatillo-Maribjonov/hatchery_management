@@ -3,8 +3,10 @@ access_dashboard,hatchery.dashboard,model_hatchery_dashboard,base.group_user,1,1
 access_incubator_admin,hatchery.incubator,model_hatchery_incubator,base.group_user,1,1,1,1
 access_norm_standard_admin,hatchery.norm.standard,model_hatchery_norm_standard,base.group_user,1,1,1,1
 access_egg_delivery,hatchery.egg.delivery,model_hatchery_egg_delivery,base.group_user,1,1,1,1
+access_loss_report,hatchery.loss.report,model_hatchery_loss_report,base.group_user,1,0,0,0
 access_egg_delivery_line,hatchery.egg.delivery.line,model_hatchery_egg_delivery_line,base.group_user,1,1,1,1
 access_batch_admin,hatchery.incubation.batch,model_hatchery_incubation_batch,base.group_user,1,1,1,1
+access_incubation_log,hatchery.incubation.log,model_hatchery_incubation_log,base.group_user,1,1,1,1
 access_reservation_admin,hatchery.reservation,model_hatchery_reservation,base.group_user,1,1,1,1
 access_batch_wizard,hatchery.batch.wizard,model_hatchery_batch_wizard,base.group_user,1,1,1,1
 access_batch_wizard_line,hatchery.batch.wizard.line,model_hatchery_batch_wizard_line,base.group_user,1,1,1,1

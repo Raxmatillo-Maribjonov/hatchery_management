@@ -6,6 +6,7 @@
               action="action_hatchery_dashboard"
               sequence="10"/>
 
+
     <!-- Partiya — bitta, to'g'ri ochiladi -->
     <menuitem id="menu_hatchery_partiya"
               name="Partiya"
@@ -22,7 +23,7 @@
 
     <!-- Sotuv — bitta, to'g'ri ochiladi -->
     <menuitem id="menu_hatchery_sales"
-              name="Sotuv"
+              name="Buyurtmalar"
               parent="menu_hatchery_root"
               action="action_reservation"
               sequence="30"/>

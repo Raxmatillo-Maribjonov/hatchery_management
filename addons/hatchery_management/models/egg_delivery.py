@@ -62,6 +62,10 @@ class EggDelivery(models.Model):
     sorting_losses = fields.Integer(
         string='Saralashda yo\'qotilgan tuxumlar soni', default=0, tracking=True)
 
+    total_losses = fields.Integer(
+        string='Jami yo\'qotish',
+        compute='_compute_incubation_eggs', store=True)
+
     incubation_eggs = fields.Integer(
         string='Inkubatsiyaga kirgan tuxumlar soni',
         compute='_compute_incubation_eggs', store=True)
@@ -70,16 +74,41 @@ class EggDelivery(models.Model):
         'hatchery.egg.delivery.line', 'delivery_id',
         string='Sort bo\'yicha taqsimot')
 
+    reservation_ids = fields.One2many(
+        'hatchery.reservation', 'delivery_id',
+        string='Buyurtmalar')
+
     total_expected_chick_count = fields.Integer(
         string='Jami kutilgan jo\'ja',
         compute='_compute_totals', store=True)
 
     notes = fields.Text(string='Izoh')
 
+    arrival_label = fields.Char(
+        string='Sana va vaqt',
+        compute='_compute_arrival_label',
+        store=True
+    )
+
+    @api.depends('arrival_date', 'arrival_time')
+    def _compute_arrival_label(self):
+        for rec in self:
+            if rec.arrival_date:
+                h = int(rec.arrival_time or 0)
+                m = int(round((rec.arrival_time - h) * 60)) if rec.arrival_time else 0
+                rec.arrival_label = f"{rec.arrival_date} {h:02d}:{m:02d}"
+            else:
+                rec.arrival_label = ''
+
     @api.depends('total_eggs_received', 'transport_losses',
                  'unloading_losses', 'sorting_unusable', 'sorting_losses')
     def _compute_incubation_eggs(self):
         for rec in self:
+            rec.total_losses = (
+                rec.transport_losses
+                + rec.unloading_losses
+                + rec.sorting_losses
+            )
             rec.incubation_eggs = (
                 rec.total_eggs_received
                 - rec.transport_losses
